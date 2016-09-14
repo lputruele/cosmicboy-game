@@ -23,7 +23,7 @@ enum MYKEYS {
 typedef struct gentity gentity_t;
 
 struct gentity{
-	bool			is_used;
+	bool			inuse;
 	float 			pos_x;
 	float 			pos_y;
 	int 			width;
@@ -39,11 +39,14 @@ struct gentity{
 	int 			next_think;
 	int 			next_shoot;
 	void 			(*think)(gentity_t *self);
+	void			(*fire)(gentity_t *self);
+	bool			is_bolt;
 
 };
 
 bool redraw;
 bool doexit;
+bool game_over;
 bool key[MAX_KEYS];
 int num_entities;
 int level_time;
@@ -64,7 +67,7 @@ void draw_entities();
 //int changeWeapon(int weapon);
 int init_player();
 int destroy_player();
-int shoot();
+void shoot(gentity_t *ent);
 
 //g_controls.c
 
@@ -80,5 +83,7 @@ int main_menu();
 //g_level.c
 
 int init_level();
-int spawn(gentity_t **ent);
+gentity_t *spawn(gentity_t *ent);
 void update_entities();
+void free_entity(gentity_t *ent);
+void create_enemy(gentity_t *ent);

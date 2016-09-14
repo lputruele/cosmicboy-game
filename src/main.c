@@ -40,7 +40,7 @@ int main()
 			al_clear_to_color(al_map_rgb(0,0,0));
             update_entities();
             draw_entities();
-			draw_entity(player);
+			//draw_entity(player);
 			al_flip_display();
         }
         level_time++;
