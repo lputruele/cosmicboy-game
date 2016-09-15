@@ -18,8 +18,8 @@ int init_player(){
 	player->fire = shoot;
 	player->parent = player;
 	player->is_bolt = false;
-	player->next_think = level_time + 80;
-	player->think = create_enemy;
+	//player->next_think = level_time + 80;
+	//player->think = create_enemy;
 	player->lives = 3;
 	player->health = 1;
 	player->damage = 0;
@@ -73,7 +73,7 @@ void revive(){
 	player->fire_rate = 30;
 	player->next_shoot = level_time;
 	player->fire = shoot;
-	player->next_think = level_time + 80;
+	//player->next_think = level_time + 80;
 	player->health = 1;
 	player->flags |= FL_GODMODE;
 	player->sprite = al_load_bitmap("../sprites/player_god.png");

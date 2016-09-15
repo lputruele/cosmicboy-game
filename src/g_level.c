@@ -6,6 +6,7 @@ int init_level(){
 	game_over = false;
 	score = 0;
 	god_timer = level_time;
+	spawnenemy_timer = level_time;
 	memset (g_entities, 0, sizeof(*g_entities));
 	return 0;
 }
@@ -45,14 +46,51 @@ void destroy(gentity_t *ent){
 		game_over = true;
 }
 
+void explosion_anim(gentity_t *ent){
+	switch (ent->count){
+		case 0:
+			ent->sprite = al_load_bitmap("../sprites/explosion1.png");
+			ent->count++;
+			break;
+		case 1:
+			ent->sprite = al_load_bitmap("../sprites/explosion2.png");
+			ent->count++;
+			break;
+		case 2:
+			ent->sprite = al_load_bitmap("../sprites/explosion3.png");
+			ent->count++;
+			break;
+		case 3:
+			ent->sprite = al_load_bitmap("../sprites/explosion4.png");
+			ent->count++;
+			break;
+		case 4:
+			ent->sprite = al_load_bitmap("../sprites/explosion3.png");
+			ent->think = destroy;
+			break;
+		default:
+			break;
+	}
+	ent->next_think = level_time + 3;
+}
 void die (gentity_t *ent){
+	gentity_t *explosion = NULL;
 	ent->lives--;
+	if (ent->score) //add score if enemy dies
+		score += ent->score;
+	if (!ent->is_bolt){
+		explosion = spawn(explosion);
+		if (explosion){
+			explosion->pos_x = ent->pos_x;
+			explosion->pos_y = ent->pos_y;
+			explosion->next_think = level_time + 3;
+			explosion->think = explosion_anim;
+		}
+	}
 	if (ent->lives <= 0)
 		destroy(ent);
 	else //is player
 		revive();
-	if (!ent->is_bolt && ent != player)
-		score += 1;
 }
 
 void damage(gentity_t *this, gentity_t *other){
@@ -115,15 +153,19 @@ void update_entities(){
             if (ent->next_think && ent->next_think < level_time && ent->think)
                 ent->think(ent);
             //check timers
-            if (level_time > god_timer){
+            if (player->flags & FL_GODMODE && level_time > god_timer){
             	player->flags ^= FL_GODMODE;
             	player->sprite = al_load_bitmap("../sprites/player.png");
+            }
+            //create enemies
+            if (level_time > spawnenemy_timer){
+            	create_enemy();
             }
         }
 	}
 }
 
-void create_enemy(gentity_t *ent){
+void create_enemy(){
 	gentity_t *enemy = NULL;
 	enemy = spawn(enemy);
 	if (enemy){
@@ -146,6 +188,7 @@ void create_enemy(gentity_t *ent){
 		enemy->health = 10;
 		enemy->damage = 1;
 		enemy->lives = 1;
+		enemy->score = 1;
 	}
-	ent->next_think = level_time + 80;
+	spawnenemy_timer = level_time + 100;
 }

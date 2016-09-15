@@ -50,6 +50,8 @@ struct gentity{
 	int 			lives;
 	int 			health;
 	int 			damage;
+	int 			count;
+	int 			score;
 };
 
 bool redraw;
@@ -60,6 +62,7 @@ int num_entities;
 int level_time;
 int score;
 int god_timer;
+int spawnenemy_timer;
 gentity_t *player;
 gentity_t *g_entities[MAX_ENTITIES];
 
@@ -78,6 +81,7 @@ void draw_entities();
 int init_player();
 int destroy_player();
 void shoot(gentity_t *ent);
+void revive();
 
 //g_controls.c
 
@@ -98,4 +102,4 @@ int init_level();
 gentity_t *spawn(gentity_t *ent);
 void update_entities();
 void destroy(gentity_t *ent);
-void create_enemy(gentity_t *ent);
+void create_enemy();

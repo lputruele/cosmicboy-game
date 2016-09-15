@@ -63,9 +63,10 @@ int destroy_screen(){
 }
 
 void draw_entity(gentity_t *ent){
-  if (ent && ent->inuse && ent->sprite)
+  if (ent && ent->inuse && ent->sprite){
     al_draw_bitmap(ent->sprite,ent->pos_x,ent->pos_y,0);
-  //al_flip_display();
+    al_flip_display();
+  }
 }
 
 void draw_entities(){
