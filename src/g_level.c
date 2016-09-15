@@ -4,11 +4,13 @@ int init_level(){
 	num_entities = 0;
 	level_time = 0;
 	game_over = false;
+	score = 0;
+	god_timer = level_time;
 	memset (g_entities, 0, sizeof(*g_entities));
 	return 0;
 }
 
-
+//Ocupies a slot of the entities array
 gentity_t *spawn(gentity_t *ent){
 	int i;
 	if (num_entities < MAX_ENTITIES){
@@ -34,7 +36,8 @@ gentity_t *spawn(gentity_t *ent){
 	return 0;
 }
 
-void free_entity(gentity_t *ent){
+//Free a slot in the entities array
+void destroy(gentity_t *ent){
 	//memset (ent, 0, sizeof(*ent));
 	ent->inuse = false;
 	erase_entity(ent);
@@ -42,6 +45,28 @@ void free_entity(gentity_t *ent){
 		game_over = true;
 }
 
+void die (gentity_t *ent){
+	ent->lives--;
+	if (ent->lives <= 0)
+		destroy(ent);
+	else //is player
+		revive();
+	if (!ent->is_bolt && ent != player)
+		score += 1;
+}
+
+void damage(gentity_t *this, gentity_t *other){
+	if (!this->flags & FL_GODMODE)
+		this->health -= other->damage;
+	if (!other->flags & FL_GODMODE)
+		other->health -= this->damage;
+	if (this->health <= 0)
+		die(this);
+	if (other->health <= 0)
+		die(other);
+}
+
+//Check collision of one entity with all other entities
 void check_collide(gentity_t *ent){
 	int j;
 	gentity_t *other;
@@ -61,13 +86,13 @@ void check_collide(gentity_t *ent){
     		ent->pos_y >= other->pos_y &&
     		ent->pos_y <= other->pos_y + other->height)
     		)){
-    		free_entity(ent);
-    		free_entity(other);
+    		damage(ent,other);
     		break;
     	}
     }
 }
 
+//Updates the state of the level 
 void update_entities(){
 	int i;
 	gentity_t *ent;
@@ -89,7 +114,38 @@ void update_entities(){
             //think
             if (ent->next_think && ent->next_think < level_time && ent->think)
                 ent->think(ent);
+            //check timers
+            if (level_time > god_timer){
+            	player->flags ^= FL_GODMODE;
+            	player->sprite = al_load_bitmap("../sprites/player.png");
+            }
         }
 	}
 }
 
+void create_enemy(gentity_t *ent){
+	gentity_t *enemy = NULL;
+	enemy = spawn(enemy);
+	if (enemy){
+		enemy->pos_x = SCREEN_W;
+		enemy->pos_y = SCREEN_H/7;
+		enemy->width = 20;
+		enemy->height = 20;
+		enemy->speed = 3.0;
+		enemy->sprite = al_load_bitmap("../sprites/enemy1.png");
+		enemy->dir_x = enemy->pos_x-300;
+		enemy->dir_y = enemy->pos_y;
+		enemy->parent = enemy;
+		enemy->next_think = level_time + 500;
+		enemy->think = destroy;
+		enemy->is_bolt = false;
+		enemy->weapon = 0;
+		enemy->fire_rate = 50;
+		enemy->next_shoot = level_time;
+		enemy->fire = shoot;
+		enemy->health = 10;
+		enemy->damage = 1;
+		enemy->lives = 1;
+	}
+	ent->next_think = level_time + 80;
+}

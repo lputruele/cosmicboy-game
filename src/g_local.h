@@ -9,6 +9,10 @@ ALLEGRO_BITMAP *bouncer;
 ALLEGRO_TIMER *timer;
 ALLEGRO_COLOR orange,black,red;
 
+//gentity flags
+#define FL_GODMODE		0x00000001
+
+//constants
 #define SCREEN_W		800
 #define SCREEN_H		600
 #define FPS 			60.0
@@ -22,6 +26,7 @@ enum MYKEYS {
 
 typedef struct gentity gentity_t;
 
+//Game entity structure i.e ships, bolts and asteroids
 struct gentity{
 	bool			inuse;
 	float 			pos_x;
@@ -40,8 +45,11 @@ struct gentity{
 	int 			next_shoot;
 	void 			(*think)(gentity_t *self);
 	void			(*fire)(gentity_t *self);
+	//void			(*die)(gentity_t *self);
 	bool			is_bolt;
-
+	int 			lives;
+	int 			health;
+	int 			damage;
 };
 
 bool redraw;
@@ -50,6 +58,8 @@ bool game_over;
 bool key[MAX_KEYS];
 int num_entities;
 int level_time;
+int score;
+int god_timer;
 gentity_t *player;
 gentity_t *g_entities[MAX_ENTITIES];
 
@@ -79,11 +89,13 @@ int key_up(ALLEGRO_EVENT ev);
 //g_menu.c
 
 int main_menu();
+int game_over_screen();
+int hud();
 
 //g_level.c
 
 int init_level();
 gentity_t *spawn(gentity_t *ent);
 void update_entities();
-void free_entity(gentity_t *ent);
+void destroy(gentity_t *ent);
 void create_enemy(gentity_t *ent);

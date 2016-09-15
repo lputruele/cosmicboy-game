@@ -20,6 +20,10 @@ int init_player(){
 	player->is_bolt = false;
 	player->next_think = level_time + 80;
 	player->think = create_enemy;
+	player->lives = 3;
+	player->health = 1;
+	player->damage = 0;
+	//player->flags = 0x00000000;
 	return 0;
 }
 
@@ -35,7 +39,7 @@ void shoot(gentity_t *ent){
 	if (bolt){
 		switch(ent->weapon){
 		case 0: //machinegun
-			bolt->pos_x = ent->pos_x+32;
+			bolt->pos_x = ent->pos_x + ent->width/2;
 			bolt->pos_y = ent->pos_y;
 			bolt->width = 15;
 			bolt->height = 15;
@@ -45,8 +49,12 @@ void shoot(gentity_t *ent){
 			bolt->dir_y = bolt->pos_y-300;
 			bolt->parent = ent;
 			bolt->next_think = level_time + 500;
-			bolt->think = free_entity;
+			bolt->think = destroy;
 			bolt->is_bolt = true;
+			bolt->damage = 10;
+			bolt->health = 0;
+			bolt->lives = 0;
+			//bolt->flags = 0x00000000;
 			break;
 		default:
 			break;
@@ -55,26 +63,20 @@ void shoot(gentity_t *ent){
 	}
 }
 
-void create_enemy(gentity_t *ent){
-	gentity_t *enemy = NULL;
-	enemy = spawn(enemy);
-	if (enemy){
-		enemy->pos_x = SCREEN_W;
-		enemy->pos_y = SCREEN_H/7;
-		enemy->width = 20;
-		enemy->height = 20;
-		enemy->speed = 3.0;
-		enemy->sprite = al_load_bitmap("../sprites/enemy1.png");
-		enemy->dir_x = enemy->pos_x-300;
-		enemy->dir_y = enemy->pos_y;
-		enemy->parent = enemy;
-		enemy->next_think = level_time + 500;
-		enemy->think = free_entity;
-		enemy->is_bolt = false;
-		enemy->weapon = 0;
-		enemy->fire_rate = 50;
-		enemy->next_shoot = level_time;
-		enemy->fire = shoot;
-	}
-	ent->next_think = level_time + 80;
+void revive(){
+	player->pos_x = SCREEN_W/2 - SCREEN_W*0.09;
+	player->pos_y = SCREEN_H/2 + SCREEN_H*0.25;
+	player->width = 45;
+	player->height = 25;
+	player->speed = 6.0;
+	player->weapon = 0;
+	player->fire_rate = 30;
+	player->next_shoot = level_time;
+	player->fire = shoot;
+	player->next_think = level_time + 80;
+	player->health = 1;
+	player->flags |= FL_GODMODE;
+	player->sprite = al_load_bitmap("../sprites/player_god.png");
+	god_timer = level_time + 300;
 }
+
