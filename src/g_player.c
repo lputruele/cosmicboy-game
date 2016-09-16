@@ -54,8 +54,16 @@ void revive(){
 void changeWeapon(int weapon){
 	switch (weapon){
 		case 1:
-			player->fire_rate = 10;
+			player->fire_rate = 15;
 			player->fire = fire_machinegun;
+			break;
+		case 2:
+			player->fire_rate = 40;
+			player->fire = fire_shotgun;
+			break;
+		case 3:
+			player->fire_rate = 50;
+			player->fire = fire_rocket;
 			break;
 		default:
 			break;

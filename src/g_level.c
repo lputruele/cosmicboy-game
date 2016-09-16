@@ -71,6 +71,7 @@ void check_collide(gentity_t *ent){
     		other != ent &&
     		other->parent != ent &&
     		ent->parent != other &&
+    		(!ent->parent->is_enemy || !other->parent->is_enemy) &&
     		((other->pos_x >= ent->pos_x &&
     		other->pos_x <= ent->pos_x + ent->width &&
     		other->pos_y >= ent->pos_y &&
@@ -99,7 +100,7 @@ void update_entities(){
 		ent = g_entities[i];
 		if (ent && ent->inuse){
             //move
-            if (ent->move)
+            if (ent != player && ent->move)
             	ent->move(ent);
             //collide
          	check_collide(ent);

@@ -7,6 +7,7 @@
 #include <stdlib.h>
 
 ALLEGRO_DISPLAY *display;
+ALLEGRO_DISPLAY_MODE disp_data;
 ALLEGRO_EVENT_QUEUE *events;
 ALLEGRO_BITMAP *bouncer;
 ALLEGRO_TIMER *timer;
@@ -18,11 +19,12 @@ ALLEGRO_SAMPLE *music,*explosion_sound,*fire_sound;
 #define FL_BOUNCE		0x00000002
 
 //constants
-#define SCREEN_W		800
-#define SCREEN_H		600
+//#define SCREEN_W		800
+//#define SCREEN_H		600
 #define FPS 			60.0
 #define MAX_KEYS		5
 #define MAX_ENTITIES	1000
+int SCREEN_W,SCREEN_H;
 
 enum MYKEYS {
    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT,
@@ -53,6 +55,7 @@ struct gentity{
 	void			(*move)(gentity_t *self);
 	void			(*die)(gentity_t *self);
 	bool			is_bolt;
+	bool			is_enemy;
 	int 			lives;	//amount of lives left
 	int 			health;
 	int 			damage;	//damage that inflicts when colliding
@@ -117,23 +120,20 @@ void explosion_small_anim(gentity_t *ent);
 
 //g_weapon.c
 void fire_gun(gentity_t *ent);
+void fire_shotgun(gentity_t *ent);
 void fire_machinegun(gentity_t *ent);
+void fire_rocket(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
 
 //g_movement.c
-void move_down(gentity_t *ent);
-void move_up(gentity_t *ent);
-void move_left(gentity_t *ent);
-void move_right(gentity_t *ent);
-void move_rightdown(gentity_t *ent);
-void move_leftdown(gentity_t *ent);
-void move_rightup(gentity_t *ent);
-void move_leftup(gentity_t *ent);
+void move(gentity_t *ent);
+void move_enemy1(gentity_t *ent);
 
 //g_death.c
 
 void death_player (gentity_t *ent);
 void death_enemy (gentity_t *ent);
+void death_rocket (gentity_t *ent);
 
 //g_sound.c
 

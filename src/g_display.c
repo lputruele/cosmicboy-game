@@ -22,7 +22,11 @@ int init_screen(){
       fprintf(stderr, "failed to initialize image addon!\n");
       return -1;
     }
-
+  //al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
+  al_get_display_mode(0, &disp_data);
+  al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+  SCREEN_W = disp_data.width;
+  SCREEN_H = disp_data.height;
 	display = al_create_display(SCREEN_W, SCREEN_H);
 	if(!display) {
       fprintf(stderr, "failed to create display!\n");
@@ -39,8 +43,8 @@ int init_screen(){
       fprintf(stderr, "failed to initialize the keyboard!\n");
       return -1;
     }
+
     al_set_new_display_option(ALLEGRO_SINGLE_BUFFER, 1, ALLEGRO_REQUIRE);
-    al_set_new_display_flags(ALLEGRO_WINDOWED);
     al_init_primitives_addon();
     al_register_event_source(events, al_get_keyboard_event_source());
     al_register_event_source(events, al_get_timer_event_source(timer));
