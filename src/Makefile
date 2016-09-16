@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -I.
 DEPS = g_local.h
-OBJ = main.o g_display.o g_player.o g_controls.o g_menu.o g_level.o
+OBJ = main.o g_display.o g_player.o g_controls.o g_menu.o g_level.o g_weapon.o g_animation.o g_enemy.o g_movement.o g_death.o
 
 
 %.o: %.c $(DEPS)

@@ -46,62 +46,15 @@ void destroy(gentity_t *ent){
 		game_over = true;
 }
 
-void explosion_anim(gentity_t *ent){
-	switch (ent->count){
-		case 0:
-			ent->sprite = al_load_bitmap("../sprites/explosion1.png");
-			ent->count++;
-			break;
-		case 1:
-			ent->sprite = al_load_bitmap("../sprites/explosion2.png");
-			ent->count++;
-			break;
-		case 2:
-			ent->sprite = al_load_bitmap("../sprites/explosion3.png");
-			ent->count++;
-			break;
-		case 3:
-			ent->sprite = al_load_bitmap("../sprites/explosion4.png");
-			ent->count++;
-			break;
-		case 4:
-			ent->sprite = al_load_bitmap("../sprites/explosion3.png");
-			ent->think = destroy;
-			break;
-		default:
-			break;
-	}
-	ent->next_think = level_time + 3;
-}
-void die (gentity_t *ent){
-	gentity_t *explosion = NULL;
-	ent->lives--;
-	if (ent->score) //add score if enemy dies
-		score += ent->score;
-	if (!ent->is_bolt){
-		explosion = spawn(explosion);
-		if (explosion){
-			explosion->pos_x = ent->pos_x;
-			explosion->pos_y = ent->pos_y;
-			explosion->next_think = level_time + 3;
-			explosion->think = explosion_anim;
-		}
-	}
-	if (ent->lives <= 0)
-		destroy(ent);
-	else //is player
-		revive();
-}
-
 void damage(gentity_t *this, gentity_t *other){
 	if (!this->flags & FL_GODMODE)
 		this->health -= other->damage;
 	if (!other->flags & FL_GODMODE)
 		other->health -= this->damage;
 	if (this->health <= 0)
-		die(this);
+		this->die(this);
 	if (other->health <= 0)
-		die(other);
+		other->die(other);
 }
 
 //Check collision of one entity with all other entities
@@ -123,7 +76,12 @@ void check_collide(gentity_t *ent){
     		ent->pos_x <= other->pos_x + other->width &&
     		ent->pos_y >= other->pos_y &&
     		ent->pos_y <= other->pos_y + other->height)
-    		)){
+    		))
+    	{
+    		if (ent == player && other->weapon){ //colliding with a crate
+    			changeWeapon(other->weapon);
+    			other->health -= 999; //it needs to die after this
+    		}
     		damage(ent,other);
     		break;
     	}
@@ -138,16 +96,12 @@ void update_entities(){
 		ent = g_entities[i];
 		if (ent && ent->inuse){
             //move
-            if (ent->is_bolt && ent->parent == player)
-            	ent->pos_y = ent->pos_y - ent->speed;
-            else if (ent->is_bolt && ent->parent != player) //is an enemy bolt
-            	ent->pos_y = ent->pos_y + ent->speed;
-            else if (ent != player)//is an enemy
-            	ent->pos_x = ent->pos_x - ent->speed;
+            if (ent->move)
+            	ent->move(ent);
             //collide
          	check_collide(ent);
          	//fire
-         	if (ent != player && ent->next_shoot && ent->next_shoot < level_time && ent->fire)
+         	if (ent != player && ent->next_fire && ent->next_fire < level_time && ent->fire)
                 ent->fire(ent);
             //think
             if (ent->next_think && ent->next_think < level_time && ent->think)
@@ -165,30 +119,3 @@ void update_entities(){
 	}
 }
 
-void create_enemy(){
-	gentity_t *enemy = NULL;
-	enemy = spawn(enemy);
-	if (enemy){
-		enemy->pos_x = SCREEN_W;
-		enemy->pos_y = SCREEN_H/7;
-		enemy->width = 20;
-		enemy->height = 20;
-		enemy->speed = 3.0;
-		enemy->sprite = al_load_bitmap("../sprites/enemy1.png");
-		enemy->dir_x = enemy->pos_x-300;
-		enemy->dir_y = enemy->pos_y;
-		enemy->parent = enemy;
-		enemy->next_think = level_time + 500;
-		enemy->think = destroy;
-		enemy->is_bolt = false;
-		enemy->weapon = 0;
-		enemy->fire_rate = 50;
-		enemy->next_shoot = level_time;
-		enemy->fire = shoot;
-		enemy->health = 10;
-		enemy->damage = 1;
-		enemy->lives = 1;
-		enemy->score = 1;
-	}
-	spawnenemy_timer = level_time + 100;
-}

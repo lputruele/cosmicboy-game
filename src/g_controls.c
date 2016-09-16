@@ -22,7 +22,7 @@ int pressed_keys(){
     	if(key[KEY_RIGHT] && player->pos_x <= SCREEN_W - player->width-4.0) {
     		player->pos_x += player->speed;
     	}
-        if(key[KEY_SHOOT] && level_time >= player->next_shoot) {
+        if(key[KEY_SHOOT] && level_time >= player->next_fire) {
             player->fire(player);
         }
     }
