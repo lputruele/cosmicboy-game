@@ -17,8 +17,10 @@ int main()
     init_level();
 	init_player();
 	init_controls();
+    init_sound();
 
     main_menu();
+    level1_music();
 
     //main loop
     while (!doexit)
@@ -52,5 +54,7 @@ int main()
     //finalization
     destroy_screen();
     destroy_player();
+    destroy_sound();
+
     return 0;
 }

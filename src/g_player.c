@@ -11,7 +11,7 @@ int init_player(){
 	player->width = 45;
 	player->height = 25;
 	player->speed = 6.0;
-	player->sprite = al_load_bitmap("../sprites/player.png");
+	player->sprite = al_load_bitmap("../art/sprites/player.png");
 	player->weapon = 0;
 	player->fire_rate = 30;
 	player->next_fire = level_time;
@@ -47,7 +47,7 @@ void revive(){
 	//player->next_think = level_time + 80;
 	player->health = 1;
 	player->flags |= FL_GODMODE;
-	player->sprite = al_load_bitmap("../sprites/player_god.png");
+	player->sprite = al_load_bitmap("../art/sprites/player_god.png");
 	god_timer = level_time + 300;
 }
 

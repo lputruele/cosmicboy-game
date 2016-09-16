@@ -2,6 +2,8 @@
 #include <allegro.h>
 #include <allegro_primitives.h>
 #include <allegro_image.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <stdlib.h>
 
 ALLEGRO_DISPLAY *display;
@@ -9,6 +11,7 @@ ALLEGRO_EVENT_QUEUE *events;
 ALLEGRO_BITMAP *bouncer;
 ALLEGRO_TIMER *timer;
 ALLEGRO_COLOR orange,black,red;
+ALLEGRO_SAMPLE *music,*explosion_sound,*fire_sound;
 
 //gentity flags
 #define FL_GODMODE		0x00000001
@@ -131,3 +134,9 @@ void move_leftup(gentity_t *ent);
 
 void death_player (gentity_t *ent);
 void death_enemy (gentity_t *ent);
+
+//g_sound.c
+
+int init_sound();
+int level1_music();
+void destroy_sound();

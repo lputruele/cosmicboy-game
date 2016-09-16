@@ -40,7 +40,7 @@ int game_over_screen(){
 }
 
 int hud(){
-    hud_object = al_load_bitmap("../sprites/heart.png");
+    hud_object = al_load_bitmap("../art/sprites/heart.png");
     al_draw_bitmap(hud_object,SCREEN_W/10 - 35,SCREEN_H*0.9,0);
 
     sprintf(buffer, "%d", player->lives);

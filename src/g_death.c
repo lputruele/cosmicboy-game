@@ -11,6 +11,7 @@ void death_player (gentity_t *ent){
 		explosion->think = explosion_anim;
 		explosion->health = 300;
 		explosion->die = destroy;
+		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
 	if (ent->lives <= 0)
 		destroy(ent);
@@ -31,6 +32,7 @@ void death_enemy (gentity_t *ent){
 		explosion->think = explosion_small_anim;
 		explosion->health = 300;
 		explosion->die = destroy;
+		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
 	r = rand() % 10;
 	if(r==9){
@@ -45,7 +47,7 @@ void death_enemy (gentity_t *ent){
 			wp_crate->height = 25;
 			wp_crate->speed = 3.0;
 			wp_crate->health = 300;
-			wp_crate->sprite = al_load_bitmap("../sprites/crate_machinegun.png");
+			wp_crate->sprite = al_load_bitmap("../art/sprites/crate_machinegun.png");
 			wp_crate->flags |= FL_BOUNCE;
 			wp_crate->die = destroy;
 			wp_crate->weapon = 1;

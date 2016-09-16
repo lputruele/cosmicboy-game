@@ -39,11 +39,15 @@ gentity_t *spawn(gentity_t *ent){
 
 //Free a slot in the entities array
 void destroy(gentity_t *ent){
-	//memset (ent, 0, sizeof(*ent));
 	ent->inuse = false;
 	erase_entity(ent);
 	if (ent == player)
 		game_over = true;
+	if (num_entities < MAX_ENTITIES && !(ent+sizeof(*ent))){ //if we can free space why not?
+		memset (ent, 0, sizeof(*ent));
+		free(ent);
+	}
+
 }
 
 void damage(gentity_t *this, gentity_t *other){
@@ -67,7 +71,6 @@ void check_collide(gentity_t *ent){
     		other != ent &&
     		other->parent != ent &&
     		ent->parent != other &&
-    		//other->pos_x == ent->pos_x
     		((other->pos_x >= ent->pos_x &&
     		other->pos_x <= ent->pos_x + ent->width &&
     		other->pos_y >= ent->pos_y &&
@@ -109,7 +112,7 @@ void update_entities(){
             //check timers
             if (player->flags & FL_GODMODE && level_time > god_timer){
             	player->flags ^= FL_GODMODE;
-            	player->sprite = al_load_bitmap("../sprites/player.png");
+            	player->sprite = al_load_bitmap("../art/sprites/player.png");
             }
             //create enemies
             if (level_time > spawnenemy_timer){

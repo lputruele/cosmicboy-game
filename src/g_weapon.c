@@ -9,7 +9,7 @@ void fire_gun(gentity_t *ent){
 		bolt->width = 15;
 		bolt->height = 15;
 		bolt->speed = 5.0;
-		bolt->sprite = al_load_bitmap("../sprites/machinegun.png");
+		bolt->sprite = al_load_bitmap("../art/sprites/machinegun.png");
 		bolt->dir_x = bolt->pos_x;
 		bolt->dir_y = bolt->pos_y-300;
 		bolt->parent = ent;
@@ -23,6 +23,7 @@ void fire_gun(gentity_t *ent){
 		bolt->die = destroy;
 		//bolt->flags = 0x00000000;
 		ent->next_fire = level_time + ent->fire_rate;
+		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
 }
 
@@ -35,7 +36,7 @@ void fire_machinegun(gentity_t *ent){
 		bolt->width = 15;
 		bolt->height = 15;
 		bolt->speed = 5.0;
-		bolt->sprite = al_load_bitmap("../sprites/machinegun.png");
+		bolt->sprite = al_load_bitmap("../art/sprites/machinegun.png");
 		bolt->dir_x = bolt->pos_x;
 		bolt->dir_y = bolt->pos_y-300;
 		bolt->parent = ent;
@@ -49,6 +50,7 @@ void fire_machinegun(gentity_t *ent){
 		bolt->die = destroy;
 		//bolt->flags = 0x00000000;
 		ent->next_fire = level_time + ent->fire_rate;
+		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
 }
 
@@ -61,7 +63,7 @@ void fire_enemy1(gentity_t *ent){
 		bolt->width = 10;
 		bolt->height = 10;
 		bolt->speed = 3.0;
-		bolt->sprite = al_load_bitmap("../sprites/enemy_missile1.png");
+		bolt->sprite = al_load_bitmap("../art/sprites/enemy_missile1.png");
 		bolt->dir_x = bolt->pos_x;
 		bolt->dir_y = bolt->pos_y-300;
 		bolt->parent = ent;
@@ -75,5 +77,6 @@ void fire_enemy1(gentity_t *ent){
 		bolt->die = destroy;
 		//bolt->flags = 0x00000000;
 		ent->next_fire = level_time + ent->fire_rate;
+		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
 }

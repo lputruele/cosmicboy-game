@@ -9,7 +9,7 @@ void create_enemy(){
 		enemy->width = 20;
 		enemy->height = 20;
 		enemy->speed = 3.0;
-		enemy->sprite = al_load_bitmap("../sprites/enemy1.png");
+		enemy->sprite = al_load_bitmap("../art/sprites/enemy1.png");
 		enemy->dir_x = enemy->pos_x-300;
 		enemy->dir_y = enemy->pos_y;
 		enemy->parent = enemy;
