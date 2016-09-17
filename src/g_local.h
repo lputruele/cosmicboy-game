@@ -126,7 +126,14 @@ void fire_gun(gentity_t *ent);
 void fire_shotgun(gentity_t *ent);
 void fire_machinegun(gentity_t *ent);
 void fire_rocket(gentity_t *ent);
+void fire_bouncegun(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
+
+//g_missile.c
+gentity_t *spawn_rocket(float x, float y, gentity_t *parent);
+gentity_t *spawn_bullet(float x, float y, gentity_t *parent);
+gentity_t *spawn_bounceball(float x, float y, gentity_t *parent);
+gentity_t *spawn_enemy_bullet(float x, float y, gentity_t *parent);
 
 //g_movement.c
 void move(gentity_t *ent);

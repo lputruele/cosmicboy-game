@@ -59,7 +59,6 @@ void death_enemy (gentity_t *ent){
 	if(r==9){
 		wp_crate = spawn(wp_crate); //enemies may drop weapon crates
 		if (wp_crate){
-			r = rand() % 3;
 			wp_crate->pos_x = ent->pos_x;
 			wp_crate->pos_y = ent->pos_y;
 			wp_crate->dir_x = 1;
@@ -74,6 +73,7 @@ void death_enemy (gentity_t *ent){
 			wp_crate->flags |= FL_BOUNCE;
 			wp_crate->die = destroy;
 			wp_crate->parent = wp_crate;
+			r = rand() % 4;
 			switch (r){
 				case 0:
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_machinegun.png");
@@ -86,6 +86,10 @@ void death_enemy (gentity_t *ent){
 				case 2:
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_rocket.png");
 					wp_crate->weapon = 3;
+					break;
+				case 3:
+					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_bouncegun.png");
+					wp_crate->weapon = 4;
 					break;
 				default:
 					break;

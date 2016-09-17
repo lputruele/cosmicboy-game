@@ -88,6 +88,10 @@ void check_collide(gentity_t *ent){
     			changeWeapon(other->weapon);
     			other->health -= 999; //it needs to die after this
     		}
+    		if (other == player && ent->weapon){ //colliding with a crate
+    			changeWeapon(ent->weapon);
+    			ent->health -= 999; //it needs to die after this
+    		}
     		damage(ent,other);
     		break;
     	}
