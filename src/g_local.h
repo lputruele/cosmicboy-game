@@ -109,6 +109,8 @@ int hud();
 //g_level.c
 
 int init_level();
+int restart_level();
+int destroy_level();
 void update_entities();
 gentity_t *spawn(gentity_t *ent);
 void destroy(gentity_t *ent);
@@ -127,12 +129,14 @@ void fire_shotgun(gentity_t *ent);
 void fire_machinegun(gentity_t *ent);
 void fire_rocket(gentity_t *ent);
 void fire_bouncegun(gentity_t *ent);
+void fire_lasergun(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
 
 //g_missile.c
 gentity_t *spawn_rocket(float x, float y, gentity_t *parent);
 gentity_t *spawn_bullet(float x, float y, gentity_t *parent);
 gentity_t *spawn_bounceball(float x, float y, gentity_t *parent);
+gentity_t *spawn_laser(float x, float y, gentity_t *parent);
 gentity_t *spawn_enemy_bullet(float x, float y, gentity_t *parent);
 
 //g_movement.c

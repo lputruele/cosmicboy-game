@@ -20,7 +20,7 @@ int main()
     init_sound();
 
     main_menu();
-    //level1_music();
+    level1_music();
 
     //main loop
     while (!doexit)
@@ -38,7 +38,7 @@ int main()
       	else if(ev.type == ALLEGRO_EVENT_KEY_UP) {
         	key_up(ev);
         }
-		if(redraw && al_is_event_queue_empty(events)) {
+		if(!game_over && redraw && al_is_event_queue_empty(events)) {
 			redraw = false;
 			al_clear_to_color(al_map_rgb(0,0,0));
             al_draw_bitmap(background,0,0 - (level_time/2) % 2000,0);
@@ -47,15 +47,16 @@ int main()
             draw_entities();
 			al_flip_display();
         }
-        if (game_over)
+        if (game_over){
             game_over_screen();
+        }
         level_time++;
     }
 
     //finalization
-    destroy_screen();
-    destroy_player();
+    destroy_level();
     destroy_sound();
+    destroy_screen();
 
     return 0;
 }

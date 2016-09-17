@@ -50,6 +50,21 @@ int key_down(ALLEGRO_EVENT ev){
             key[KEY_SHOOT] = true;
             break;
     }
+    if (game_over){
+        switch(ev.keyboard.keycode){
+            case ALLEGRO_KEY_ENTER:
+                destroy_level();
+                //restart_level();
+                game_over = false;
+                score = 0;
+                level_time = 0;
+                spawnenemy_timer = 0;
+                init_player();
+                break;
+            default:
+                break;
+        }              
+    }
 	return 0;
 }
 

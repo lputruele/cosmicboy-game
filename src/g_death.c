@@ -73,7 +73,7 @@ void death_enemy (gentity_t *ent){
 			wp_crate->flags |= FL_BOUNCE;
 			wp_crate->die = destroy;
 			wp_crate->parent = wp_crate;
-			r = rand() % 4;
+			r = rand() % 5;
 			switch (r){
 				case 0:
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_machinegun.png");
@@ -90,6 +90,10 @@ void death_enemy (gentity_t *ent){
 				case 3:
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_bouncegun.png");
 					wp_crate->weapon = 4;
+					break;
+				case 4:
+					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_lasergun.png");
+					wp_crate->weapon = 5;
 					break;
 				default:
 					break;

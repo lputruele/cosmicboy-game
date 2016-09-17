@@ -56,6 +56,15 @@ void fire_machinegun(gentity_t *ent){
 	}
 }
 
+void fire_lasergun(gentity_t *ent){
+	gentity_t *bolt = NULL;
+	bolt = spawn_laser(ent->pos_x + ent->width/2, ent->pos_y-240, ent);
+	if (bolt){
+		ent->next_fire = level_time + ent->fire_rate;
+		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+	}
+}
+
 void fire_enemy1(gentity_t *ent){
 	gentity_t *bolt = NULL;
 	bolt = spawn_enemy_bullet(ent->pos_x + ent->width/2, ent->pos_y, ent);

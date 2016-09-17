@@ -13,6 +13,16 @@ int init_level(){
 	return 0;
 }
 
+int destroy_level(){
+	int i;
+	for (i=0;i<=num_entities;i++){
+		if (g_entities[i]){
+			g_entities[i]->inuse = false;
+		}
+		
+	}
+	return 0;
+}
 //Ocupies a slot of the entities array
 gentity_t *spawn(gentity_t *ent){
 	int i;
@@ -49,7 +59,6 @@ void destroy(gentity_t *ent){
 		memset (ent, 0, sizeof(*ent));
 		free(ent);
 	}
-
 }
 
 void damage(gentity_t *this, gentity_t *other){
@@ -118,27 +127,27 @@ void update_entities(){
 	for (i=0;i<num_entities;i++){
 		ent = g_entities[i];
 		if (ent && ent->inuse){
+            //collide
+         	check_collide(ent);
             //move
             if (ent != player && ent->move)
             	ent->move(ent);
-            //collide
-         	check_collide(ent);
          	//fire
-         	if (ent != player && ent->next_fire && ent->next_fire < level_time && ent->fire)
+         	if (ent != player && ent->next_fire && ent->next_fire <= level_time && ent->fire)
                 ent->fire(ent);
             //think
-            if (ent->next_think && ent->next_think < level_time && ent->think)
+            if (ent->next_think && ent->next_think <= level_time && ent->think)
                 ent->think(ent);
-            //check timers
-            if (player->flags & FL_GODMODE && level_time > god_timer){
-            	player->flags ^= FL_GODMODE;
-            	player->sprite = al_load_bitmap("../art/sprites/player.png");
-            }
-            //create enemies
-            if (level_time > spawnenemy_timer){
-            	enemy_wave();
-            }
         }
 	}
+	//check timers
+    if (player->flags & FL_GODMODE && level_time > god_timer){
+    	player->flags ^= FL_GODMODE;
+    	player->sprite = al_load_bitmap("../art/sprites/player.png");
+    }
+    //create enemies
+    if (level_time >= spawnenemy_timer){
+    	enemy_wave();
+    }
 }
 

@@ -104,3 +104,28 @@ gentity_t *spawn_rocket(float x, float y, gentity_t *parent){
 	}
 	return NULL;
 }
+
+gentity_t *spawn_laser(float x, float y, gentity_t *parent){
+	gentity_t *bolt = NULL;
+	bolt = spawn(bolt);
+	if (bolt){
+		bolt->pos_x = x;
+		bolt->pos_y = y;
+		bolt->width = 25;
+		bolt->height = 200;
+		bolt->speed = 0.0;
+		bolt->sprite = al_load_bitmap("../art/sprites/laser.png");
+		bolt->dir_x = 0;
+		bolt->dir_y = -1;
+		bolt->parent = parent;
+		bolt->next_think = level_time + 10;
+		bolt->think = destroy;
+		bolt->is_bolt = true;
+		bolt->damage = 30;
+		bolt->health = 900;
+		bolt->lives = 0;
+		bolt->move = move;
+		return bolt;
+	}
+	return NULL;
+}
