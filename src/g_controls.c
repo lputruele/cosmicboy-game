@@ -10,16 +10,16 @@ int init_controls(){
 
 int pressed_keys(){
     if (!game_over){
-    	if(key[KEY_UP] && player->pos_y >= 4.0) {
+    	if(key[KEY_UP] && player->pos_y >= player->height) {
     		player->pos_y -= player->speed;
     	}
-    	if(key[KEY_DOWN] && player->pos_y <= SCREEN_H - player->width-4.0) {
+    	if(key[KEY_DOWN] && player->pos_y <= SCREEN_H - 2*player->height) {
     		player->pos_y += player->speed;
     	}
-    	if(key[KEY_LEFT] && player->pos_x >= 4.0) {
+    	if(key[KEY_LEFT] && player->pos_x >= player->width) {
     		player->pos_x -= player->speed;
     	}
-    	if(key[KEY_RIGHT] && player->pos_x <= SCREEN_W - player->width-4.0) {
+    	if(key[KEY_RIGHT] && player->pos_x <= SCREEN_W - 4*player->width) {
     		player->pos_x += player->speed;
     	}
         if(key[KEY_SHOOT] && level_time >= player->next_fire) {

@@ -9,12 +9,17 @@ OBJ = main.o g_display.o g_player.o g_controls.o g_menu.o g_level.o g_weapon.o g
 
 test:
 	make build clean;
-	./build;
+	./build
 
 build: $(OBJ)
 	gcc -o  $@ $^ $(CFLAGS) -lallegro -lallegro_primitives -lallegro_image  -lallegro_font -lallegro_ttf -lallegro_audio -lallegro_acodec
 
 clean:
 	rm -f $(OBJ)
+
+allegro:
+	sudo add-apt-repository ppa:allegro/5.2;
+	sudo apt-get update;
+	sudo apt-get install liballegro5-dev
 
 

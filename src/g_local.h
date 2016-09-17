@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <allegro.h>
-#include <allegro_primitives.h>
-#include <allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_ttf.h>
 #include <stdlib.h>
+#include <string.h>
 
 ALLEGRO_DISPLAY *display;
 ALLEGRO_DISPLAY_MODE disp_data;
 ALLEGRO_EVENT_QUEUE *events;
-ALLEGRO_BITMAP *bouncer;
+ALLEGRO_BITMAP *background;
 ALLEGRO_TIMER *timer;
 ALLEGRO_COLOR orange,black,red;
 ALLEGRO_SAMPLE *music,*explosion_sound,*fire_sound;
@@ -112,7 +114,8 @@ gentity_t *spawn(gentity_t *ent);
 void destroy(gentity_t *ent);
 
 //g_enemy.c
-void create_enemy();
+void blaster_squad();
+void melee_squad();
 
 //g_animation.c
 void explosion_anim(gentity_t *ent);

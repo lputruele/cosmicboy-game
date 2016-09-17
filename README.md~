@@ -1,0 +1,8 @@
+# cosmicboy-game
+
+Cosmic Boy - A Linux arcade shooter
+
+To Play:
+	$ make allegro
+	$ make build
+	$ ./build

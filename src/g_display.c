@@ -1,5 +1,5 @@
 #include "g_local.h"
-#include <allegro_image.h>
+//#include <allegro_image.h>
 
 int init_screen(){
 	display = NULL;
@@ -23,7 +23,7 @@ int init_screen(){
       return -1;
     }
   //al_get_display_mode(al_get_num_display_modes() - 1, &disp_data);
-  al_get_display_mode(0, &disp_data);
+  al_get_display_mode(1, &disp_data);
   al_set_new_display_flags(ALLEGRO_FULLSCREEN);
   SCREEN_W = disp_data.width;
   SCREEN_H = disp_data.height;

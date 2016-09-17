@@ -1,6 +1,6 @@
 #include "g_local.h"
-#include <allegro_image.h>
-#include <stdio.h>
+//#include <allegro_image.h>
+//#include <stdio.h>
 
 int init_player(){
 	player = NULL;
@@ -8,7 +8,7 @@ int init_player(){
 	//player = malloc(sizeof(*player));
 	player->pos_x = SCREEN_W/2 - SCREEN_W*0.09;
 	player->pos_y = SCREEN_H/2 + SCREEN_H*0.25;
-	player->width = 45;
+	player->width = 35;
 	player->height = 25;
 	player->speed = 6.0;
 	player->sprite = al_load_bitmap("../art/sprites/player.png");
@@ -37,7 +37,7 @@ int destroy_player(){
 void revive(){
 	player->pos_x = SCREEN_W/2 - SCREEN_W*0.09;
 	player->pos_y = SCREEN_H/2 + SCREEN_H*0.25;
-	player->width = 45;
+	player->width = 35;
 	player->height = 25;
 	player->speed = 6.0;
 	player->weapon = 0;

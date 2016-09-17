@@ -80,7 +80,7 @@ void fire_shotgun(gentity_t *ent){
 		bolt->move = move;
 		bolt->die = destroy;
 		//bolt->flags = 0x00000000;
-		bolt2->pos_x = ent->pos_x;
+		bolt2->pos_x = ent->pos_x - ent->width/2;
 		bolt2->pos_y = ent->pos_y;
 		bolt2->width = 15;
 		bolt2->height = 15;
@@ -98,7 +98,7 @@ void fire_shotgun(gentity_t *ent){
 		bolt2->move = move;
 		bolt2->die = destroy;
 		//bolt->flags = 0x00000000;
-		bolt3->pos_x = ent->pos_x + ent->width;
+		bolt3->pos_x = ent->pos_x + 1.5*ent->width;
 		bolt3->pos_y = ent->pos_y;
 		bolt3->width = 15;
 		bolt3->height = 15;

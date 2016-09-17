@@ -7,6 +7,8 @@ int init_level(){
 	score = 0;
 	god_timer = level_time;
 	spawnenemy_timer = level_time;
+	background = al_load_bitmap("../art/sprites/space.png");
+	al_draw_bitmap(background,0,0,0);
 	memset (g_entities, 0, sizeof(*g_entities));
 	return 0;
 }
@@ -92,6 +94,19 @@ void check_collide(gentity_t *ent){
     }
 }
 
+void enemy_wave(){
+	int r = rand() % 2;
+	switch (r){
+		case 0:
+			blaster_squad();
+			break;
+		case 1:
+			melee_squad();
+			break;
+		default:
+			break;
+	}
+}
 //Updates the state of the level 
 void update_entities(){
 	int i;
@@ -117,7 +132,7 @@ void update_entities(){
             }
             //create enemies
             if (level_time > spawnenemy_timer){
-            	create_enemy();
+            	enemy_wave();
             }
         }
 	}

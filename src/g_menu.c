@@ -1,8 +1,8 @@
 #include "g_local.h"
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <allegro5/allegro_font.h>
+//#include <allegro5/allegro_ttf.h>
+//#include <stdlib.h>
+//#include <string.h>
 
 ALLEGRO_FONT *font_big, *font_small;
 ALLEGRO_BITMAP *hud_object;

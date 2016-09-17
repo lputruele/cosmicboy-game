@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_image.h>
+//#include <stdio.h>
+//#include <allegro5/allegro.h>
+//#include <allegro5/allegro_primitives.h>
+//#include <allegro5/allegro_image.h>
 #include "g_local.h"
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
+//#include <allegro5/allegro_font.h>
+//#include <allegro5/allegro_ttf.h>
 
 //#include <pthread.h>
 //#include <semaphore.h>
@@ -20,7 +20,7 @@ int main()
     init_sound();
 
     main_menu();
-    level1_music();
+    //level1_music();
 
     //main loop
     while (!doexit)
@@ -41,6 +41,7 @@ int main()
 		if(redraw && al_is_event_queue_empty(events)) {
 			redraw = false;
 			al_clear_to_color(al_map_rgb(0,0,0));
+            al_draw_bitmap(background,0,0 - (level_time/2) % 2000,0);
             hud();
             update_entities();
             draw_entities();
