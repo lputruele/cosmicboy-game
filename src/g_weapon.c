@@ -73,3 +73,14 @@ void fire_enemy1(gentity_t *ent){
 		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
 }
+
+void fire_enemy2(gentity_t *ent){
+	gentity_t *bolt = NULL;
+	gentity_t *bolt2 = NULL;
+	bolt = spawn_enemy_bullet(ent->pos_x + ent->width/2, ent->pos_y, ent);
+	bolt2 = spawn_enemy_bullet(ent->pos_x + ent->width/2+40, ent->pos_y, ent);
+	if (bolt && bolt2){
+		ent->next_fire = level_time + ent->fire_rate;
+		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+	}
+}

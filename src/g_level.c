@@ -108,13 +108,19 @@ void check_collide(gentity_t *ent){
 }
 
 void enemy_wave(){
-	int r = rand() % 2;
+	int r = rand() % 4;
 	switch (r){
 		case 0:
 			blaster_squad();
 			break;
 		case 1:
 			melee_squad();
+			break;
+		case 2:
+			fighter_squad();
+			break;
+		case 3:
+			plasmamissile_squad();
 			break;
 		default:
 			break;

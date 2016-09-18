@@ -34,7 +34,7 @@ int main_menu(){
 int game_over_screen(){
     al_clear_to_color(red);
     al_draw_text(font_big, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H/4),ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-    al_draw_text(font_small, al_map_rgb(255,255,255), SCREEN_W*0.7, (SCREEN_H/4),ALLEGRO_ALIGN_CENTRE, "PRESS ENTER TO RESTART");
+    al_draw_text(font_small, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H*0.8),ALLEGRO_ALIGN_CENTRE, "PRESS ENTER TO RESTART");
     al_flip_display();
     return 0;
 }

@@ -125,6 +125,7 @@ gentity_t *spawn_laser(float x, float y, gentity_t *parent){
 		bolt->health = 900;
 		bolt->lives = 0;
 		bolt->move = move;
+		bolt->die = destroy;
 		return bolt;
 	}
 	return NULL;

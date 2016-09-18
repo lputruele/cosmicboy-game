@@ -116,14 +116,20 @@ gentity_t *spawn(gentity_t *ent);
 void destroy(gentity_t *ent);
 
 //g_enemy.c
+
 void blaster_squad();
 void melee_squad();
+void fighter_squad();
+void plasmamissile_squad();
 
 //g_animation.c
+
 void explosion_anim(gentity_t *ent);
 void explosion_small_anim(gentity_t *ent);
+void explosion_plasma_anim(gentity_t *ent);
 
 //g_weapon.c
+
 void fire_gun(gentity_t *ent);
 void fire_shotgun(gentity_t *ent);
 void fire_machinegun(gentity_t *ent);
@@ -131,8 +137,10 @@ void fire_rocket(gentity_t *ent);
 void fire_bouncegun(gentity_t *ent);
 void fire_lasergun(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
+void fire_enemy2(gentity_t *ent);
 
 //g_missile.c
+
 gentity_t *spawn_rocket(float x, float y, gentity_t *parent);
 gentity_t *spawn_bullet(float x, float y, gentity_t *parent);
 gentity_t *spawn_bounceball(float x, float y, gentity_t *parent);
@@ -140,6 +148,7 @@ gentity_t *spawn_laser(float x, float y, gentity_t *parent);
 gentity_t *spawn_enemy_bullet(float x, float y, gentity_t *parent);
 
 //g_movement.c
+
 void move(gentity_t *ent);
 void move_enemy1(gentity_t *ent);
 
@@ -148,6 +157,7 @@ void move_enemy1(gentity_t *ent);
 void death_player (gentity_t *ent);
 void death_enemy (gentity_t *ent);
 void death_rocket (gentity_t *ent);
+void death_plasmamissile (gentity_t *ent);
 
 //g_sound.c
 

@@ -19,6 +19,26 @@ void death_rocket (gentity_t *ent){
 	}
 	destroy(ent);
 }
+
+void death_plasmamissile (gentity_t *ent){
+	gentity_t *explosion = NULL;
+	explosion = spawn(explosion);
+	if (explosion){
+		explosion->pos_x = ent->pos_x-100;
+		explosion->pos_y = ent->pos_y;
+		explosion->width = 350;
+		explosion->height = 350;
+		explosion->next_think = level_time + 3;
+		explosion->think = explosion_plasma_anim;
+		explosion->health = 300;
+		explosion->die = destroy;
+		explosion->damage = 1000;
+		explosion->parent = ent;
+		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+	}
+	destroy(ent);
+}
+
 void death_player (gentity_t *ent){
 	gentity_t *explosion = NULL;
 	ent->lives--;
