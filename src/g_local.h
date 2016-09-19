@@ -69,6 +69,7 @@ bool redraw;
 bool doexit;
 bool game_over;
 bool key[MAX_KEYS];
+bool cheat_activated;
 int num_entities;	//entities currently allocated in game
 int level_time;	//global clock
 int score;
@@ -76,6 +77,7 @@ int god_timer;
 int spawnenemy_timer;
 gentity_t *player;
 gentity_t *g_entities[MAX_ENTITIES];	//has pointers to all entities in the game
+FILE* file_score;
 
 
 //g_display.c

@@ -7,9 +7,11 @@ int init_level(){
 	score = 0;
 	god_timer = level_time;
 	spawnenemy_timer = level_time;
+	cheat_activated = false;
+	file_score = NULL;
 	background = al_load_bitmap("../art/sprites/space.png");
 	al_draw_bitmap(background,0,0,0);
-	memset (g_entities, 0, sizeof(*g_entities));
+	memset (g_entities, 0, sizeof(g_entities));
 	return 0;
 }
 

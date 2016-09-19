@@ -4,16 +4,26 @@
 //#include <stdlib.h>
 //#include <string.h>
 
-ALLEGRO_FONT *font_big, *font_small;
+ALLEGRO_FONT *font_big,*font_medium, *font_small;
 ALLEGRO_BITMAP *hud_object;
 char buffer[20];
+int topscore;
 
 int main_menu(){
 	al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
     font_big = al_load_ttf_font("../ui/pirulen.ttf",72,0 );
+    memset(buffer, 0, sizeof(buffer));
+    topscore = 0;
  
     if (!font_big){
+        fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
+        return -1;
+    }
+
+    font_medium = al_load_ttf_font("../ui/pirulen.ttf",24,0 );
+ 
+    if (!font_medium){
         fprintf(stderr, "Could not load 'pirulen.ttf'.\n");
         return -1;
     }
@@ -34,7 +44,20 @@ int main_menu(){
 int game_over_screen(){
     al_clear_to_color(red);
     al_draw_text(font_big, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H/4),ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-    al_draw_text(font_small, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H*0.8),ALLEGRO_ALIGN_CENTRE, "PRESS ENTER TO RESTART");
+    al_draw_text(font_medium, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H*0.6),ALLEGRO_ALIGN_CENTRE, "PRESS ENTER TO RESTART");
+    sprintf(buffer, "%d", score);
+    file_score = fopen("topscore.txt","rw+");
+    if (file_score){
+        fscanf(file_score, "%d", &topscore);
+        if (topscore < score){
+            freopen(NULL,"w+",file_score);
+            fprintf(file_score, "%d", score);
+            topscore = score;
+        }
+        fclose(file_score);
+    }
+    sprintf(buffer, "TOP SCORE: %d", topscore);
+    al_draw_text(font_medium, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H*0.8),ALLEGRO_ALIGN_CENTRE, buffer);
     al_flip_display();
     return 0;
 }

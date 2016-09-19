@@ -20,7 +20,7 @@ int main()
     init_sound();
 
     main_menu();
-    level1_music();
+    //level1_music();
 
     //main loop
     while (!doexit)

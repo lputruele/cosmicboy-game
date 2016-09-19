@@ -63,7 +63,8 @@ void death_enemy (gentity_t *ent){
 	gentity_t *explosion = NULL;
 	gentity_t *wp_crate = NULL;
 	int r;
-	score += ent->score;
+	if (!cheat_activated)
+		score += ent->score;
 	explosion = spawn(explosion);
 	if (explosion){
 		explosion->pos_x = ent->pos_x;
