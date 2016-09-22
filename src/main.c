@@ -14,13 +14,12 @@ int main()
 	doexit = 0;
 	//initialization
     init_screen();
-    init_level();
-	init_player();
 	init_controls();
     init_sound();
-
+    init_level();
+    init_player();
     main_menu();
-    //level1_music();
+    level1_music();
 
     //main loop
     while (!doexit)

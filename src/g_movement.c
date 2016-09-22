@@ -19,7 +19,18 @@ void move_enemy1(gentity_t *ent){
 	if(ent->pos_x >= player->pos_x - 30 && ent->pos_x <= player->pos_x + 30){
 		ent->dir_x = 0;
 		ent->dir_y = 1;
-		//ent->move = move;
+	}
+	move(ent);
+}
+
+void move_boss1(gentity_t *ent){
+	if (ent->pos_y <= SCREEN_H/2 && ent->pos_y > SCREEN_H/4 && ent->count == 0){
+		ent->dir_x = 1;
+		ent->dir_y = 0;
+		ent->count++;
+	}
+	if ((ent->pos_x >= SCREEN_W - 2*ent->width) || (ent->pos_x <= 2*ent->width)){
+			ent->dir_x *= -1;
 	}
 	move(ent);
 }

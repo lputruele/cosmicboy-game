@@ -13,7 +13,7 @@ void death_rocket (gentity_t *ent){
 		explosion->think = explosion_anim;
 		explosion->health = 300;
 		explosion->die = destroy;
-		explosion->damage = ent->damage/3;
+		explosion->damage = 2;
 		explosion->parent = ent;
 		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
@@ -32,7 +32,7 @@ void death_plasmamissile (gentity_t *ent){
 		explosion->think = explosion_plasma_anim;
 		explosion->health = 300;
 		explosion->die = destroy;
-		explosion->damage = 1000;
+		explosion->damage = 10;
 		explosion->parent = ent;
 		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
@@ -53,8 +53,10 @@ void death_player (gentity_t *ent){
 		explosion->parent = ent;
 		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
-	if (ent->lives <= 0)
+	if (ent->lives <= 0){
+		destroy_sound();
 		destroy(ent);
+	}
 	else 
 		revive();
 }
@@ -122,5 +124,28 @@ void death_enemy (gentity_t *ent){
 			
 		}
 	}
+	destroy(ent);
+}
+
+void death_boss (gentity_t *ent){
+	gentity_t *explosion = NULL;
+	if (!cheat_activated)
+		score += ent->score;
+	explosion = spawn(explosion);
+	if (explosion){
+		explosion->pos_x = ent->pos_x;
+		explosion->pos_y = ent->pos_y;
+		explosion->next_think = level_time + 3;
+		explosion->think = explosion_anim;
+		explosion->health = 300;
+		explosion->die = destroy;
+		explosion->parent = ent;
+		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+	}
+	boss_activated = false;
+	stage++;
+	spawnboss_timer = level_time + 1000;
+	destroy_sound();
+	level1_music();
 	destroy(ent);
 }

@@ -229,3 +229,120 @@ void plasmamissile_squad(){
 	create_plasmamissile(posx, posy, dirx);
 	spawnenemy_timer = level_time + 200;
 }
+
+void activate_bounce(gentity_t *ent){
+	ent->flags |= FL_BOUNCE;
+}
+
+void add_speed(gentity_t *ent){
+	ent->speed += 0.1;
+}
+
+void boss1(){
+	gentity_t *boss = NULL;
+	boss = spawn(boss);
+	if (boss){
+		boss->pos_x = SCREEN_W/2;
+		boss->pos_y = 0;
+		boss->width = 150;
+		boss->height = 150;
+		boss->speed = 1.0;
+		boss->sprite = al_load_bitmap("../art/sprites/boss2.png");
+		boss->dir_x = 0;
+		boss->dir_y = 1;
+		boss->parent = boss;
+		boss->next_think = level_time + 100;
+		//boss->think = activate_bounce;
+		boss->is_bolt = false;
+		boss->weapon = 0;
+		boss->fire_rate = 25;
+		boss->next_fire = level_time;
+		boss->fire = fire_boss1;
+		boss->health = 500;
+		boss->damage = 1;
+		boss->lives = 1;
+		boss->score = 1;
+		boss->move = move_boss1;
+		boss->die = death_boss;
+		//boss->pain = add_speed;
+		boss->is_enemy = true;
+		boss->count = 0;
+	}
+}
+
+void boss2(){
+	gentity_t *boss = NULL;
+	boss = spawn(boss);
+	if (boss){
+		boss->pos_x = SCREEN_W/2;
+		boss->pos_y = 0;
+		boss->width = 150;
+		boss->height = 150;
+		boss->speed = 1.0;
+		boss->sprite = al_load_bitmap("../art/sprites/boss1.png");
+		boss->dir_x = 0;
+		boss->dir_y = 1;
+		boss->parent = boss;
+		boss->next_think = level_time + 100;
+		//boss->think = activate_bounce;
+		boss->is_bolt = false;
+		boss->weapon = 0;
+		boss->fire_rate = 25;
+		boss->next_fire = level_time;
+		boss->fire = fire_boss1;
+		boss->health = 500;
+		boss->damage = 1;
+		boss->lives = 1;
+		boss->score = 1;
+		boss->move = move_boss1;
+		boss->die = death_boss;
+		//boss->pain = add_speed;
+		boss->is_enemy = true;
+		boss->count = 0;
+	}
+}
+
+void boss3(){
+	gentity_t *boss = NULL;
+	boss = spawn(boss);
+	if (boss){
+		boss->pos_x = SCREEN_W/2;
+		boss->pos_y = 0;
+		boss->width = 150;
+		boss->height = 150;
+		boss->speed = 1.0;
+		boss->sprite = al_load_bitmap("../art/sprites/boss3.png");
+		boss->dir_x = 0;
+		boss->dir_y = 1;
+		boss->parent = boss;
+		boss->next_think = level_time + 100;
+		//boss->think = activate_bounce;
+		boss->is_bolt = false;
+		boss->weapon = 0;
+		boss->fire_rate = 25;
+		boss->next_fire = level_time;
+		boss->fire = fire_boss1;
+		boss->health = 500;
+		boss->damage = 1;
+		boss->lives = 1;
+		boss->score = 1;
+		boss->move = move_boss1;
+		boss->die = death_boss;
+		//boss->pain = add_speed;
+		boss->is_enemy = true;
+		boss->count = 0;
+	}
+}
+
+void boss_fight(int stage){
+	switch (stage){
+		case 1:
+			boss1();
+			destroy_sound();
+    		boss_music();
+			break;
+		default:
+			boss_activated = false;
+			break;
+	}
+}

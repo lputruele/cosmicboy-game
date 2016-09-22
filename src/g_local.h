@@ -55,6 +55,7 @@ struct gentity{
 	void 			(*think)(gentity_t *self);
 	void			(*fire)(gentity_t *self);
 	void			(*move)(gentity_t *self);
+	void			(*pain)(gentity_t *self);
 	void			(*die)(gentity_t *self);
 	bool			is_bolt;
 	bool			is_enemy;
@@ -70,11 +71,14 @@ bool doexit;
 bool game_over;
 bool key[MAX_KEYS];
 bool cheat_activated;
+bool boss_activated;
 int num_entities;	//entities currently allocated in game
 int level_time;	//global clock
 int score;
 int god_timer;
+int spawnboss_timer;
 int spawnenemy_timer;
+int stage;
 gentity_t *player;
 gentity_t *g_entities[MAX_ENTITIES];	//has pointers to all entities in the game
 FILE* file_score;
@@ -123,6 +127,7 @@ void blaster_squad();
 void melee_squad();
 void fighter_squad();
 void plasmamissile_squad();
+void boss_fight(int stage);
 
 //g_animation.c
 
@@ -140,19 +145,23 @@ void fire_bouncegun(gentity_t *ent);
 void fire_lasergun(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
 void fire_enemy2(gentity_t *ent);
+void fire_boss1(gentity_t *ent);
 
 //g_missile.c
 
-gentity_t *spawn_rocket(float x, float y, gentity_t *parent);
-gentity_t *spawn_bullet(float x, float y, gentity_t *parent);
-gentity_t *spawn_bounceball(float x, float y, gentity_t *parent);
-gentity_t *spawn_laser(float x, float y, gentity_t *parent);
-gentity_t *spawn_enemy_bullet(float x, float y, gentity_t *parent);
+gentity_t *spawn_rocket(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_bullet(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_bounceball(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_laser(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_enemy_bullet(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_enemy_bullet_medium(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_enemy_bullet_big(float posx, float posy, float dirx, float diry, gentity_t *parent);
 
 //g_movement.c
 
 void move(gentity_t *ent);
 void move_enemy1(gentity_t *ent);
+void move_boss1(gentity_t *ent);
 
 //g_death.c
 
@@ -160,9 +169,11 @@ void death_player (gentity_t *ent);
 void death_enemy (gentity_t *ent);
 void death_rocket (gentity_t *ent);
 void death_plasmamissile (gentity_t *ent);
+void death_boss (gentity_t *ent);
 
 //g_sound.c
 
 int init_sound();
 int level1_music();
+int boss_music();
 void destroy_sound();

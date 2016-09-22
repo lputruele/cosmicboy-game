@@ -66,11 +66,11 @@ void changeWeapon(int weapon){
 			player->fire = fire_rocket;
 			break;
 		case 4:
-			player->fire_rate = 70;
+			player->fire_rate = 60;
 			player->fire = fire_bouncegun;
 			break;
 		case 5:
-			player->fire_rate = 5;
+			player->fire_rate = 8;
 			player->fire = fire_lasergun;
 			break;
 		default:

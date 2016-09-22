@@ -7,10 +7,12 @@ int init_level(){
 	score = 0;
 	god_timer = level_time;
 	spawnenemy_timer = level_time;
+	spawnboss_timer = level_time + 1000;
+	stage = 1;
 	cheat_activated = false;
 	file_score = NULL;
+	boss_activated = false;
 	background = al_load_bitmap("../art/sprites/space.png");
-	al_draw_bitmap(background,0,0,0);
 	memset (g_entities, 0, sizeof(g_entities));
 	return 0;
 }
@@ -64,10 +66,16 @@ void destroy(gentity_t *ent){
 }
 
 void damage(gentity_t *this, gentity_t *other){
-	if (!this->flags & FL_GODMODE)
+	if (!(this->flags & FL_GODMODE)){
 		this->health -= other->damage;
-	if (!other->flags & FL_GODMODE)
+		if (this->pain)
+			this->pain(this);
+	}
+	if (!(other->flags & FL_GODMODE)){
 		other->health -= this->damage;
+		if (other->pain)
+			other->pain(other);
+	}
 	if (this->health <= 0)
 		this->die(this);
 	if (other->health <= 0)
@@ -84,6 +92,7 @@ void check_collide(gentity_t *ent){
     		other != ent &&
     		other->parent != ent &&
     		ent->parent != other &&
+    		(!ent->is_bolt || !other->is_bolt) &&
     		(!ent->parent->is_enemy || !other->parent->is_enemy) &&
     		((other->pos_x >= ent->pos_x &&
     		other->pos_x <= ent->pos_x + ent->width &&
@@ -153,8 +162,13 @@ void update_entities(){
     	player->flags ^= FL_GODMODE;
     	player->sprite = al_load_bitmap("../art/sprites/player.png");
     }
-    //create enemies
-    if (level_time >= spawnenemy_timer){
+    //create boss
+    if (level_time >= spawnboss_timer && !boss_activated){
+    	boss_activated = true;
+    	boss_fight(stage);
+    }
+	//create enemies
+    if (level_time >= spawnenemy_timer && !boss_activated){
     	enemy_wave();
     }
 }

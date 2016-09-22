@@ -26,6 +26,12 @@ int level1_music(){
 	return 0;
 }
 
+int boss_music(){
+   music = al_load_sample( "../art/music/boss.wav" );
+   al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
+   return 0;
+}
+
 void destroy_sound(){
 	al_destroy_sample(music);
 }
