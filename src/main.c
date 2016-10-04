@@ -1,13 +1,4 @@
-//#include <stdio.h>
-//#include <allegro5/allegro.h>
-//#include <allegro5/allegro_primitives.h>
-//#include <allegro5/allegro_image.h>
 #include "g_local.h"
-//#include <allegro5/allegro_font.h>
-//#include <allegro5/allegro_ttf.h>
-
-//#include <pthread.h>
-//#include <semaphore.h>
 
 int main()
 {
@@ -19,7 +10,7 @@ int main()
     init_level();
     init_player();
     main_menu();
-    //level1_music();
+    level1_music();
 
     //main loop
     while (!doexit)

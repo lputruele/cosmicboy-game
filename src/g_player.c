@@ -7,17 +7,17 @@ int init_player(){
 	player = spawn(player);
 	player->pos_x = SCREEN_W/2 - SCREEN_W*0.09;
 	player->pos_y = SCREEN_H/2 + SCREEN_H*0.25;
-	player->width = 35;
-	player->height = 25;
+	player->width = 27;
+	player->height = 60;
 	player->speed = 6.0;
 	player->sprite = al_load_bitmap("../art/sprites/player.png");
-	player->weapon = 0;
 	player->fire_rate = 30;
 	player->next_fire = level_time;
 	player->fire = fire_gun;
 	player->parent = player;
 	player->is_bolt = false;
 	player->lives = 3;
+	//player->health = 32000; // test
 	player->health = 1;
 	player->damage = 0;
 	player->die = death_player;
@@ -33,10 +33,9 @@ int destroy_player(){
 void revive(){
 	player->pos_x = SCREEN_W/2 - SCREEN_W*0.09;
 	player->pos_y = SCREEN_H/2 + SCREEN_H*0.25;
-	player->width = 35;
-	player->height = 25;
+	player->width = 27;
+	player->height = 60;
 	player->speed = 6.0;
-	player->weapon = 0;
 	player->fire_rate = 30;
 	player->next_fire = level_time;
 	player->fire = fire_gun;

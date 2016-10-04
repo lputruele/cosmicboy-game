@@ -56,6 +56,7 @@ int init_screen(){
     orange = al_map_rgb(255, 210, 0);
     black = al_map_rgb(0, 0, 0);
     red = al_map_rgb(184, 22, 22);
+    green = al_map_rgb(10, 180, 10);
     return 0;
 }
 
@@ -69,11 +70,11 @@ int destroy_screen(){
 void draw_entity(gentity_t *ent){
   if (ent && ent->inuse && ent->sprite){
     if (ent->hit && ent->is_enemy){
-      al_draw_tinted_bitmap(ent->sprite, al_map_rgba_f(1, 0, 0, 1), ent->pos_x,ent->pos_y,0);
+      al_draw_tinted_bitmap(ent->sprite, al_map_rgba_f(1, 0, 0, 1), ent->pos_x - ent->width/2,ent->pos_y,0);
       ent->hit = false;
     }
     else
-      al_draw_bitmap(ent->sprite,ent->pos_x,ent->pos_y,0);
+      al_draw_bitmap(ent->sprite,ent->pos_x - ent->width/2,ent->pos_y,0);
   }
 }
 
@@ -83,6 +84,10 @@ void draw_entities(){
   for (i=0;i<num_entities;i++){
     ent = g_entities[i];
     draw_entity(ent);
+    //draw position
+    //al_draw_rectangle(ent->pos_x, ent->pos_y, ent->pos_x, ent->pos_y, green, 5);
+    //draw collider
+    //al_draw_rectangle(ent->pos_x, ent->pos_y, ent->pos_x + ent->width, ent->pos_y + ent->height, red, 1);
   }
 }
 

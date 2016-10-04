@@ -13,7 +13,7 @@ ALLEGRO_DISPLAY_MODE disp_data;
 ALLEGRO_EVENT_QUEUE *events;
 ALLEGRO_BITMAP *background;
 ALLEGRO_TIMER *timer;
-ALLEGRO_COLOR orange,black,red;
+ALLEGRO_COLOR orange,black,red,green;
 ALLEGRO_SAMPLE *music,*explosion_sound,*fire_sound;
 
 //gentity flags
@@ -46,7 +46,7 @@ struct gentity{
 	ALLEGRO_BITMAP  *sprite;
 	float 			dir_x;
 	float 			dir_y;
-	int 			weapon;
+	int 			weapon; //matters if entity is a crate
 	int 			fire_rate;
 	int 			flags;
 	gentity_t 		*parent;

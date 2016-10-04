@@ -6,8 +6,8 @@ gentity_t *spawn_bullet(float posx, float posy, float dirx, float diry, gentity_
 	if (bolt){
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
-		bolt->width = 15;
-		bolt->height = 15;
+		bolt->width = 8;
+		bolt->height = 8;
 		bolt->speed = 5.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/bullet.png");
 		bolt->dir_x = dirx;
@@ -32,8 +32,8 @@ gentity_t *spawn_enemy_bullet(float posx, float posy, float dirx, float diry, ge
 	if (bolt){
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
-		bolt->width = 10;
-		bolt->height = 10;
+		bolt->width = 7;
+		bolt->height = 7;
 		bolt->speed = 6.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/enemy_missile.png");
 		bolt->dir_x = dirx;
@@ -58,7 +58,7 @@ gentity_t *spawn_enemy_laser(float posx, float posy, float dirx, float diry, gen
 	if (bolt){
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
-		bolt->width = 15;
+		bolt->width = 5;
 		bolt->height = 300;
 		bolt->speed = 0.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/enemy_laser.png");
@@ -136,8 +136,8 @@ gentity_t *spawn_bounceball(float posx, float posy, float dirx, float diry, gent
 	if (bolt){
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
-		bolt->width = 15;
-		bolt->height = 15;
+		bolt->width = 10;
+		bolt->height = 10;
 		bolt->speed = 7.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/bouncegun.png");
 		bolt->dir_x = dirx;
@@ -163,8 +163,8 @@ gentity_t *spawn_rocket(float posx, float posy, float dirx, float diry, gentity_
 	if (bolt){
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
-		bolt->width = 25;
-		bolt->height = 35;
+		bolt->width = 15;
+		bolt->height = 45;
 		bolt->speed = 3.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/rocket.png");
 		bolt->dir_x = dirx;
@@ -189,8 +189,8 @@ gentity_t *spawn_laser(float posx, float posy, float dirx, float diry, gentity_t
 	if (bolt){
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
-		bolt->width = 25;
-		bolt->height = 200;
+		bolt->width = 15;
+		bolt->height = 240;
 		bolt->speed = 0.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/laser.png");
 		bolt->dir_x = dirx;

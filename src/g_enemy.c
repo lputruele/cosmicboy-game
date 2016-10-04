@@ -6,8 +6,8 @@ void create_blaster(float posx, float posy, float dirx){
 	if (enemy){
 		enemy->pos_x = posx;
 		enemy->pos_y = posy;
-		enemy->width = 20;
-		enemy->height = 20;
+		enemy->width = 25;
+		enemy->height = 50;
 		enemy->speed = 3.0;
 		enemy->sprite = al_load_bitmap("../art/sprites/enemy1.png");
 		enemy->dir_x = dirx;
@@ -16,7 +16,6 @@ void create_blaster(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->weapon = 0;
 		enemy->fire_rate = 100;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy1;
@@ -35,8 +34,8 @@ void create_melee(float posx, float posy, float dirx){
 	if (enemy){
 		enemy->pos_x = posx;
 		enemy->pos_y = posy;
-		enemy->width = 30;
-		enemy->height = 30;
+		enemy->width = 23;
+		enemy->height = 55;
 		enemy->speed = 6.0;
 		enemy->sprite = al_load_bitmap("../art/sprites/enemy2.png");
 		enemy->dir_x = dirx;
@@ -45,7 +44,6 @@ void create_melee(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->weapon = 0;
 		enemy->fire_rate = 50;
 		enemy->next_fire = level_time;
 		//enemy->fire = fire_enemy1;
@@ -65,8 +63,8 @@ void create_fighter(float posx, float posy, float dirx){
 	if (enemy){
 		enemy->pos_x = posx;
 		enemy->pos_y = posy;
-		enemy->width = 30;
-		enemy->height = 30;
+		enemy->width = 37;
+		enemy->height = 60;
 		enemy->speed = 4.0;
 		enemy->sprite = al_load_bitmap("../art/sprites/enemy3.png");
 		enemy->dir_x = dirx;
@@ -75,7 +73,6 @@ void create_fighter(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->weapon = 0;
 		enemy->fire_rate = 50;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy2;
@@ -96,7 +93,7 @@ void create_laserguy(float posx, float posy, float dirx){
 		enemy->pos_x = posx;
 		enemy->pos_y = posy;
 		enemy->width = 50;
-		enemy->height = 50;
+		enemy->height = 70;
 		enemy->speed = 4.0;
 		enemy->sprite = al_load_bitmap("../art/sprites/enemy12.png");
 		enemy->dir_x = dirx;
@@ -105,7 +102,6 @@ void create_laserguy(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->weapon = 0;
 		enemy->fire_rate = 10;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy3;
@@ -125,8 +121,8 @@ void create_plasmamissile(float posx, float posy, float dirx){
 	if (enemy){
 		enemy->pos_x = posx;
 		enemy->pos_y = posy;
-		enemy->width = 80;
-		enemy->height = 200;
+		enemy->width = 65;
+		enemy->height = 240;
 		enemy->speed = 4.0;
 		enemy->sprite = al_load_bitmap("../art/sprites/enemy13.png");
 		enemy->dir_x = dirx;
@@ -135,7 +131,6 @@ void create_plasmamissile(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 800;
 		enemy->think = death_plasmamissile;
 		enemy->is_bolt = false;
-		enemy->weapon = 0;
 		enemy->fire_rate = 50;
 		enemy->next_fire = level_time;
 		//enemy->fire = fire_enemy2;
@@ -280,8 +275,8 @@ void boss1(){
 	if (boss){
 		boss->pos_x = SCREEN_W/2;
 		boss->pos_y = 0;
-		boss->width = 150;
-		boss->height = 150;
+		boss->width = 110;
+		boss->height = 210;
 		boss->speed = 1.0;
 		boss->sprite = al_load_bitmap("../art/sprites/boss2.png");
 		boss->dir_x = 0;
@@ -290,7 +285,6 @@ void boss1(){
 		boss->next_think = level_time + 100;
 		//boss->think = activate_bounce;
 		boss->is_bolt = false;
-		boss->weapon = 0;
 		boss->fire_rate = 25;
 		boss->next_fire = level_time;
 		boss->fire = fire_boss1;
@@ -322,7 +316,6 @@ void boss2(){
 		boss->next_think = level_time + 100;
 		//boss->think = activate_bounce;
 		boss->is_bolt = false;
-		boss->weapon = 0;
 		boss->fire_rate = 25;
 		boss->next_fire = level_time;
 		boss->fire = fire_boss1;
@@ -354,7 +347,6 @@ void boss3(){
 		boss->next_think = level_time + 100;
 		//boss->think = activate_bounce;
 		boss->is_bolt = false;
-		boss->weapon = 0;
 		boss->fire_rate = 25;
 		boss->next_fire = level_time;
 		boss->fire = fire_boss1;

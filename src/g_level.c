@@ -103,10 +103,10 @@ void check_collide(gentity_t *ent){
     		other->pos_x <= ent->pos_x + ent->width &&
     		other->pos_y >= ent->pos_y &&
     		other->pos_y <= ent->pos_y + ent->height) ||
-    		(ent->pos_x >= other->pos_x &&
-    		ent->pos_x <= other->pos_x + other->width &&
-    		ent->pos_y >= other->pos_y &&
-    		ent->pos_y <= other->pos_y + other->height)
+    		(other->pos_x >= ent->pos_x &&
+    		other->pos_x <= ent->pos_x + ent->width &&
+    		other->pos_y + other->height >= ent->pos_y &&
+    		other->pos_y + other->height <= ent->pos_y + ent->height)
     		))
     	{
     		if (ent == player && other->weapon){ //colliding with a crate
