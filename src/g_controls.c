@@ -124,6 +124,12 @@ int key_down(ALLEGRO_EVENT ev){
         case ALLEGRO_KEY_ESCAPE:
         	doexit = true;
         	break;
+        case ALLEGRO_KEY_SPACE:
+            if (game_paused)
+                game_paused = false;
+            else
+                game_paused = true;
+            break;
         case ALLEGRO_KEY_A:
             key[KEY_SHOOT] = true;
             break;
@@ -139,7 +145,7 @@ int key_down(ALLEGRO_EVENT ev){
                 level_time = 0;
                 spawnenemy_timer = 0;
                 stage = 1;
-                spawnboss_timer = 1000;
+                spawnboss_timer = 10000;
                 init_player();
                 level1_music();
                 break;

@@ -1,5 +1,6 @@
 #include "g_local.h"
 
+//Initialization of the game
 int init_level(){
 	num_entities = 0;
 	level_time = 0;
@@ -7,7 +8,7 @@ int init_level(){
 	score = 0;
 	god_timer = level_time;
 	spawnenemy_timer = level_time;
-	spawnboss_timer = level_time + 1000;
+	spawnboss_timer = level_time + 10000;
 	stage = 1;
 	cheat_activated = false;
 	file_score = NULL;
@@ -17,17 +18,18 @@ int init_level(){
 	return 0;
 }
 
+//Destroys all game entities
 int destroy_level(){
 	int i;
 	for (i=0;i<=num_entities;i++){
 		if (g_entities[i]){
 			g_entities[i]->inuse = false;
-		}
-		
+		}		
 	}
 	return 0;
 }
-//Ocupies a slot of the entities array
+
+//Spawns a game entity
 gentity_t *spawn(gentity_t *ent){
 	int i;
 	if (num_entities < MAX_ENTITIES){
@@ -53,7 +55,7 @@ gentity_t *spawn(gentity_t *ent){
 	return 0;
 }
 
-//Free a slot in the entities array
+//Destroys a game entity
 void destroy(gentity_t *ent){
 	ent->inuse = false;
 	erase_entity(ent);
@@ -65,14 +67,17 @@ void destroy(gentity_t *ent){
 	}
 }
 
+//Inflicts damage to both entities of a collision
 void damage(gentity_t *this, gentity_t *other){
 	if (!(this->flags & FL_GODMODE)){
 		this->health -= other->damage;
+		this->hit = true;
 		if (this->pain)
 			this->pain(this);
 	}
 	if (!(other->flags & FL_GODMODE)){
 		other->health -= this->damage;
+		other->hit = true;
 		if (other->pain)
 			other->pain(other);
 	}
@@ -82,7 +87,7 @@ void damage(gentity_t *this, gentity_t *other){
 		other->die(other);
 }
 
-//Check collision of one entity with all other entities
+//Checks collision of one entity with all other entities
 void check_collide(gentity_t *ent){
 	int j;
 	gentity_t *other;
@@ -118,8 +123,9 @@ void check_collide(gentity_t *ent){
     }
 }
 
+//Spawns a wave of enemies
 void enemy_wave(){
-	int r = rand() % 4;
+	int r = rand() % 5;
 	switch (r){
 		case 0:
 			blaster_squad();
@@ -133,10 +139,14 @@ void enemy_wave(){
 		case 3:
 			plasmamissile_squad();
 			break;
+		case 4:
+			laserguy_squad();
+			break;
 		default:
 			break;
 	}
 }
+
 //Updates the state of the level 
 void update_entities(){
 	int i;

@@ -61,15 +61,19 @@ int init_screen(){
 
 int destroy_screen(){
 	al_destroy_display(display);
-    al_destroy_event_queue(events);
-    al_destroy_timer(timer);
-    return 0;
+  al_destroy_event_queue(events);
+  al_destroy_timer(timer);
+  return 0;
 }
 
 void draw_entity(gentity_t *ent){
   if (ent && ent->inuse && ent->sprite){
-    al_draw_bitmap(ent->sprite,ent->pos_x,ent->pos_y,0);
-    //al_flip_display();
+    if (ent->hit && ent->is_enemy){
+      al_draw_tinted_bitmap(ent->sprite, al_map_rgba_f(1, 0, 0, 1), ent->pos_x,ent->pos_y,0);
+      ent->hit = false;
+    }
+    else
+      al_draw_bitmap(ent->sprite,ent->pos_x,ent->pos_y,0);
   }
 }
 
@@ -78,10 +82,8 @@ void draw_entities(){
   gentity_t *ent;
   for (i=0;i<num_entities;i++){
     ent = g_entities[i];
-    if (ent && ent->inuse && ent->sprite)
-      al_draw_bitmap(ent->sprite,ent->pos_x,ent->pos_y,0);
+    draw_entity(ent);
   }
-  //al_flip_display();
 }
 
 void erase_entity(gentity_t *ent){

@@ -52,6 +52,32 @@ gentity_t *spawn_enemy_bullet(float posx, float posy, float dirx, float diry, ge
 	return NULL;
 }
 
+gentity_t *spawn_enemy_laser(float posx, float posy, float dirx, float diry, gentity_t *parent){
+	gentity_t *bolt = NULL;
+	bolt = spawn(bolt);
+	if (bolt){
+		bolt->pos_x = posx;
+		bolt->pos_y = posy;
+		bolt->width = 15;
+		bolt->height = 300;
+		bolt->speed = 0.0;
+		bolt->sprite = al_load_bitmap("../art/sprites/enemy_laser.png");
+		bolt->dir_x = dirx;
+		bolt->dir_y = diry;
+		bolt->parent = parent;
+		bolt->next_think = level_time + 10;
+		bolt->think = destroy;
+		bolt->is_bolt = true;
+		bolt->damage = 1;
+		bolt->health = 900;
+		bolt->lives = 0;
+		bolt->move = move;
+		bolt->die = destroy;
+		return bolt;
+	}
+	return NULL;
+}
+
 gentity_t *spawn_enemy_bullet_medium(float posx, float posy, float dirx, float diry, gentity_t *parent){
 	gentity_t *bolt = NULL;
 	bolt = spawn(bolt);

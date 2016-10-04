@@ -23,6 +23,22 @@ void move_enemy1(gentity_t *ent){
 	move(ent);
 }
 
+void move_enemy2(gentity_t *ent){
+	if(ent->pos_x <= SCREEN_W/2){
+		if (ent->dir_x == 1)
+			ent->dir_y -= 1/ent->pos_x;
+		else
+			ent->dir_y += 1/ent->pos_x;
+	}
+	else{
+		if (ent->dir_x == 1)
+			ent->dir_y += 1/ent->pos_x;
+		else
+			ent->dir_y -= 1/ent->pos_x;
+	}
+	move(ent);
+}
+
 void move_boss1(gentity_t *ent){
 	if (ent->pos_y <= SCREEN_H/2 && ent->pos_y > SCREEN_H/4 && ent->count == 0){
 		ent->dir_x = 1;

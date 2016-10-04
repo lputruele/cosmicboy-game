@@ -64,11 +64,13 @@ struct gentity{
 	int 			damage;	//damage that inflicts when colliding
 	int 			count;	//just a counter utility
 	int 			score;	//amount of score an enemy gives if dead
+	bool			hit;
 };
 
 bool redraw;
 bool doexit;
 bool game_over;
+bool game_paused;
 bool key[MAX_KEYS];
 bool cheat_activated;
 bool boss_activated;
@@ -126,6 +128,7 @@ void destroy(gentity_t *ent);
 void blaster_squad();
 void melee_squad();
 void fighter_squad();
+void laserguy_squad();
 void plasmamissile_squad();
 void boss_fight(int stage);
 
@@ -145,6 +148,7 @@ void fire_bouncegun(gentity_t *ent);
 void fire_lasergun(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
 void fire_enemy2(gentity_t *ent);
+void fire_enemy3(gentity_t *ent);
 void fire_boss1(gentity_t *ent);
 
 //g_missile.c
@@ -156,11 +160,13 @@ gentity_t *spawn_laser(float posx, float posy, float dirx, float diry, gentity_t
 gentity_t *spawn_enemy_bullet(float posx, float posy, float dirx, float diry, gentity_t *parent);
 gentity_t *spawn_enemy_bullet_medium(float posx, float posy, float dirx, float diry, gentity_t *parent);
 gentity_t *spawn_enemy_bullet_big(float posx, float posy, float dirx, float diry, gentity_t *parent);
+gentity_t *spawn_enemy_laser(float posx, float posy, float dirx, float diry, gentity_t *parent);
 
 //g_movement.c
 
 void move(gentity_t *ent);
 void move_enemy1(gentity_t *ent);
+void move_enemy2(gentity_t *ent);
 void move_boss1(gentity_t *ent);
 
 //g_death.c

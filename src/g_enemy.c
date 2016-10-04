@@ -89,6 +89,36 @@ void create_fighter(float posx, float posy, float dirx){
 	}
 }
 
+void create_laserguy(float posx, float posy, float dirx){
+	gentity_t *enemy = NULL;
+	enemy = spawn(enemy);
+	if (enemy){
+		enemy->pos_x = posx;
+		enemy->pos_y = posy;
+		enemy->width = 50;
+		enemy->height = 50;
+		enemy->speed = 4.0;
+		enemy->sprite = al_load_bitmap("../art/sprites/enemy12.png");
+		enemy->dir_x = dirx;
+		enemy->dir_y = 0;
+		enemy->parent = enemy;
+		enemy->next_think = level_time + 1000;
+		enemy->think = destroy;
+		enemy->is_bolt = false;
+		enemy->weapon = 0;
+		enemy->fire_rate = 10;
+		enemy->next_fire = level_time;
+		enemy->fire = fire_enemy3;
+		enemy->health = 20;
+		enemy->damage = 1;
+		enemy->lives = 1;
+		enemy->score = 1;
+		enemy->move = move_enemy2;
+		enemy->die = death_enemy;
+		enemy->is_enemy = true;
+	}
+}
+
 void create_plasmamissile(float posx, float posy, float dirx){
 	gentity_t *enemy = NULL;
 	enemy = spawn(enemy);
@@ -206,6 +236,12 @@ void fighter_squad(){
 	create_fighter(posx, posy, dirx);
 	create_fighter(posx - 100, posy - 50, dirx);
 	create_fighter(posx + 100, posy - 50, dirx);
+	spawnenemy_timer = level_time + 100;
+}
+
+void laserguy_squad(){
+	create_laserguy(-50, SCREEN_H * 0.6, 1);
+	create_laserguy(SCREEN_W + 50, SCREEN_H * 0.6, -1);
 	spawnenemy_timer = level_time + 100;
 }
 
