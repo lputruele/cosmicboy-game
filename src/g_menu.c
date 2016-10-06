@@ -41,6 +41,15 @@ int main_menu(){
     return 0;
 }
 
+int stage_screen(){
+    al_clear_to_color(al_map_rgb(50,120,50));
+    sprintf(buffer, "STAGE %d", stage);
+    al_draw_text(font_big, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H/4),ALLEGRO_ALIGN_CENTRE, buffer);
+    al_flip_display();
+    sleep(2);
+    return 0;
+}
+
 int game_over_screen(){
     al_clear_to_color(red);
     al_draw_text(font_big, al_map_rgb(255,255,255), SCREEN_W/2, (SCREEN_H/4),ALLEGRO_ALIGN_CENTRE, "GAME OVER");
@@ -70,6 +79,8 @@ int hud(){
     al_draw_text(font_small, al_map_rgb(255,255,255), SCREEN_W/10, SCREEN_H*0.9, ALLEGRO_ALIGN_CENTRE, buffer);
     sprintf(buffer, "SCORE %d", score);
     al_draw_text(font_small, al_map_rgb(255,255,255), 2*SCREEN_W/10, SCREEN_H*0.9, ALLEGRO_ALIGN_CENTRE, buffer);
+    sprintf(buffer, "STAGE %d", stage);
+    al_draw_text(font_small, al_map_rgb(255,255,255), 2*SCREEN_W/10, SCREEN_H*0.93, ALLEGRO_ALIGN_CENTRE, buffer);
  
     return 0;
 }

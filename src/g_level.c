@@ -8,12 +8,14 @@ int init_level(){
 	score = 0;
 	god_timer = level_time;
 	spawnenemy_timer = level_time;
-	spawnboss_timer = level_time + 10000;
+	spawnboss_timer = level_time + 5000;
 	stage = 1;
 	cheat_activated = false;
 	file_score = NULL;
 	boss_activated = false;
-	background = al_load_bitmap("../art/sprites/space.png");
+	stage_screen();
+	level_background();
+	level_music();
 	memset (g_entities, 0, sizeof(g_entities));
 	return 0;
 }
@@ -29,6 +31,19 @@ int destroy_level(){
 	return 0;
 }
 
+void restart_level(){
+    game_over = false;
+    boss_activated = false;
+    score = 0;
+    level_time = 0;
+    spawnenemy_timer = 0;
+    stage = 1;
+    spawnboss_timer = 5000;
+    stage_screen();
+    init_player();
+    level_background();
+    level_music();
+}
 //Spawns a game entity
 gentity_t *spawn(gentity_t *ent){
 	int i;
@@ -71,13 +86,15 @@ void destroy(gentity_t *ent){
 void damage(gentity_t *this, gentity_t *other){
 	if (!(this->flags & FL_GODMODE)){
 		this->health -= other->damage;
-		this->hit = true;
+		if (other->damage > 0)
+			this->hit = true;
 		if (this->pain)
 			this->pain(this);
 	}
 	if (!(other->flags & FL_GODMODE)){
 		other->health -= this->damage;
-		other->hit = true;
+		if (this->damage > 0)
+			other->hit = true;
 		if (other->pain)
 			other->pain(other);
 	}
@@ -125,26 +142,93 @@ void check_collide(gentity_t *ent){
 
 //Spawns a wave of enemies
 void enemy_wave(){
-	int r = rand() % 5;
-	switch (r){
-		case 0:
-			blaster_squad();
-			break;
+	int r;
+	switch (stage){
 		case 1:
-			melee_squad();
+			r = rand() % 2;
+			switch (r){
+				case 0:
+					blaster_squad();
+					break;
+				case 1:
+					melee_squad();
+					break;
+			}
 			break;
 		case 2:
-			fighter_squad();
+			r = rand() % 3;
+			switch (r){
+				case 0:
+					blaster_squad();
+					break;
+				case 1:
+					melee_squad();
+					break;
+				case 2:
+					fighter_squad();
+					break;
+			}
 			break;
 		case 3:
-			plasmamissile_squad();
+			r = rand() % 4;
+			switch (r){
+				case 0:
+					blaster_squad();
+					break;
+				case 1:
+					melee_squad();
+					break;
+				case 2:
+					fighter_squad();
+					break;
+				case 3:
+					plasmamissile_squad();
+					break;
+			}
 			break;
 		case 4:
-			laserguy_squad();
+			r = rand() % 5;
+			switch (r){
+				case 0:
+					blaster_squad();
+					break;
+				case 1:
+					melee_squad();
+					break;
+				case 2:
+					fighter_squad();
+					break;
+				case 3:
+					plasmamissile_squad();
+					break;
+				case 4:
+					laserguy_squad();
+					break;
+			}
 			break;
 		default:
+			r = rand() % 5;
+			switch (r){
+				case 0:
+					blaster_squad();
+					break;
+				case 1:
+					melee_squad();
+					break;
+				case 2:
+					fighter_squad();
+					break;
+				case 3:
+					plasmamissile_squad();
+					break;
+				case 4:
+					laserguy_squad();
+					break;
+				default:
+					break;
+			}
 			break;
-	}
+	} 
 }
 
 //Updates the state of the level 
@@ -175,7 +259,9 @@ void update_entities(){
     //create boss
     if (level_time >= spawnboss_timer && !boss_activated){
     	boss_activated = true;
-    	boss_fight(stage);
+    	boss_fight();
+    	destroy_sound();
+    	boss_music();
     }
 	//create enemies
     if (level_time >= spawnenemy_timer && !boss_activated){

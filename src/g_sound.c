@@ -20,15 +20,15 @@ int init_sound(){
    return 0;
 }
 
-int level1_music(){
+int level_music(){
 	music = al_load_sample( "../art/music/level1.wav" );
-	al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
+	//al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
 	return 0;
 }
 
 int boss_music(){
    music = al_load_sample( "../art/music/boss.wav" );
-   al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
+   //al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
    return 0;
 }
 

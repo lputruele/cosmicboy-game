@@ -96,3 +96,22 @@ void erase_entity(gentity_t *ent){
 	   al_destroy_bitmap(ent->sprite);
 }
 
+void level_background(){
+  switch (stage){
+    case 1:
+        background = al_load_bitmap("../art/sprites/space.png");
+        break;
+    case 2:
+        background = al_load_bitmap("../art/sprites/space2.png");
+        break;
+    case 3:
+        background = al_load_bitmap("../art/sprites/space3.png");
+        break;
+    case 4:
+        background = al_load_bitmap("../art/sprites/space4.png");
+        break;
+    default:
+      break;
+  }
+}
+

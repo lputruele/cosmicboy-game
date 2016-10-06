@@ -138,16 +138,7 @@ int key_down(ALLEGRO_EVENT ev){
         switch(ev.keyboard.keycode){
             case ALLEGRO_KEY_ENTER:
                 destroy_level();
-                //restart_level();
-                game_over = false;
-                boss_activated = false;
-                score = 0;
-                level_time = 0;
-                spawnenemy_timer = 0;
-                stage = 1;
-                spawnboss_timer = 10000;
-                init_player();
-                level1_music();
+                restart_level();
                 break;
             default:
                 break;

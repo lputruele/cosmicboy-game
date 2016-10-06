@@ -7,10 +7,10 @@ int main()
     init_screen();
 	init_controls();
     init_sound();
+    
+    main_menu();
     init_level();
     init_player();
-    main_menu();
-    level1_music();
 
     //main loop
     while (!doexit)

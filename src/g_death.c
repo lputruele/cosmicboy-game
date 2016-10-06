@@ -61,9 +61,61 @@ void death_player (gentity_t *ent){
 		revive();
 }
 
+void spawn_crate (gentity_t *ent){
+	int r;
+	gentity_t *wp_crate = NULL;
+	wp_crate = spawn(wp_crate); //enemies may drop weapon crates
+	if (wp_crate){
+		wp_crate->pos_x = ent->pos_x;
+		wp_crate->pos_y = ent->pos_y;
+		wp_crate->dir_x = 1;
+		wp_crate->dir_y = 1;
+		wp_crate->next_think = level_time + 1000;
+		wp_crate->think = destroy;
+		wp_crate->move = move;
+		wp_crate->width = 30;
+		wp_crate->height = 30;
+		wp_crate->speed = 3.0;
+		wp_crate->health = 300;
+		wp_crate->flags |= FL_BOUNCE;
+		wp_crate->die = destroy;
+		wp_crate->parent = wp_crate;
+		r = rand() % 5;
+		switch (r){ // probability will be better the later stage we are in
+			case 0:
+				wp_crate->sprite = al_load_bitmap("../art/sprites/crate_machinegun.png");
+				wp_crate->weapon = 1;
+				break;
+			case 1:
+				wp_crate->sprite = al_load_bitmap("../art/sprites/crate_shotgun.png");
+				wp_crate->weapon = 2;
+				break;
+			case 2:
+				if (stage > 1){
+					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_rocket.png");
+					wp_crate->weapon = 3;
+				}
+				break;
+			case 3:
+				if (stage > 2){
+					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_bouncegun.png");
+					wp_crate->weapon = 4;
+				}
+				break;
+			case 4:
+				if (stage > 3){
+					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_lasergun.png");
+					wp_crate->weapon = 5;
+				}	
+				break;
+			default:
+				break;
+		}	
+	}
+}
+
 void death_enemy (gentity_t *ent){
 	gentity_t *explosion = NULL;
-	gentity_t *wp_crate = NULL;
 	int r;
 	if (!cheat_activated)
 		score += ent->score;
@@ -78,51 +130,9 @@ void death_enemy (gentity_t *ent){
 		explosion->parent = ent;
 		al_play_sample(explosion_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 	}
-	r = rand() % 10;
+	r = rand() % 15;
 	if(r==9){
-		wp_crate = spawn(wp_crate); //enemies may drop weapon crates
-		if (wp_crate){
-			wp_crate->pos_x = ent->pos_x;
-			wp_crate->pos_y = ent->pos_y;
-			wp_crate->dir_x = 1;
-			wp_crate->dir_y = 1;
-			wp_crate->next_think = level_time + 1000;
-			wp_crate->think = destroy;
-			wp_crate->move = move;
-			wp_crate->width = 25;
-			wp_crate->height = 25;
-			wp_crate->speed = 3.0;
-			wp_crate->health = 300;
-			wp_crate->flags |= FL_BOUNCE;
-			wp_crate->die = destroy;
-			wp_crate->parent = wp_crate;
-			r = rand() % 5;
-			switch (r){
-				case 0:
-					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_machinegun.png");
-					wp_crate->weapon = 1;
-					break;
-				case 1:
-					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_shotgun.png");
-					wp_crate->weapon = 2;
-					break;
-				case 2:
-					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_rocket.png");
-					wp_crate->weapon = 3;
-					break;
-				case 3:
-					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_bouncegun.png");
-					wp_crate->weapon = 4;
-					break;
-				case 4:
-					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_lasergun.png");
-					wp_crate->weapon = 5;
-					break;
-				default:
-					break;
-			}
-			
-		}
+		spawn_crate(ent);
 	}
 	destroy(ent);
 }
@@ -144,8 +154,11 @@ void death_boss (gentity_t *ent){
 	}
 	boss_activated = false;
 	stage++;
-	spawnboss_timer = level_time + 1000;
+	player->lives++;
+	spawnboss_timer = level_time + 5000;
+	stage_screen();
+	level_background();
 	destroy_sound();
-	level1_music();
+	level_music();
 	destroy(ent);
 }

@@ -362,15 +362,13 @@ void boss3(){
 	}
 }
 
-void boss_fight(int stage){
+void boss_fight(){
 	switch (stage){
 		case 1:
 			boss1();
-			destroy_sound();
-    		boss_music();
 			break;
 		default:
-			boss_activated = false;
+			boss1();
 			break;
 	}
 }

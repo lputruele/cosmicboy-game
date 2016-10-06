@@ -93,6 +93,7 @@ int destroy_screen();
 void draw_entity(gentity_t *ent);
 void erase_entity(gentity_t *ent);
 void draw_entities();
+void level_background();
 
 //g_player.c
 
@@ -111,13 +112,14 @@ int key_up(ALLEGRO_EVENT ev);
 //g_menu.c
 
 int main_menu();
+int stage_screen();
 int game_over_screen();
 int hud();
 
 //g_level.c
 
 int init_level();
-int restart_level();
+void restart_level();
 int destroy_level();
 void update_entities();
 gentity_t *spawn(gentity_t *ent);
@@ -130,7 +132,7 @@ void melee_squad();
 void fighter_squad();
 void laserguy_squad();
 void plasmamissile_squad();
-void boss_fight(int stage);
+void boss_fight();
 
 //g_animation.c
 
@@ -180,6 +182,6 @@ void death_boss (gentity_t *ent);
 //g_sound.c
 
 int init_sound();
-int level1_music();
+int level_music();
 int boss_music();
 void destroy_sound();
