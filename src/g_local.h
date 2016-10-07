@@ -131,6 +131,7 @@ void blaster_squad();
 void melee_squad();
 void fighter_squad();
 void laserguy_squad();
+void crossunit_squad();
 void plasmamissile_squad();
 void boss_fight();
 
@@ -151,6 +152,7 @@ void fire_lasergun(gentity_t *ent);
 void fire_enemy1(gentity_t *ent);
 void fire_enemy2(gentity_t *ent);
 void fire_enemy3(gentity_t *ent);
+void fire_enemy4(gentity_t *ent);
 void fire_boss1(gentity_t *ent);
 
 //g_missile.c

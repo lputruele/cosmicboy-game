@@ -69,8 +69,9 @@ int destroy_screen(){
 
 void draw_entity(gentity_t *ent){
   if (ent && ent->inuse && ent->sprite){
-    if (ent->hit && ent->is_enemy){
-      al_draw_tinted_bitmap(ent->sprite, al_map_rgba_f(1, 0, 0, 1), ent->pos_x - ent->width/2,ent->pos_y,0);
+    if (ent->hit){
+      if (ent->is_enemy)
+        al_draw_tinted_bitmap(ent->sprite, al_map_rgba_f(1, 0, 0, 1), ent->pos_x - ent->width/2,ent->pos_y,0);
       ent->hit = false;
     }
     else
@@ -111,7 +112,8 @@ void level_background(){
         background = al_load_bitmap("../art/sprites/space4.png");
         break;
     default:
-      break;
+        background = al_load_bitmap("../art/sprites/space.png");
+        break;
   }
 }
 

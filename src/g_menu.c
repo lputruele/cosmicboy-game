@@ -80,7 +80,7 @@ int hud(){
     sprintf(buffer, "SCORE %d", score);
     al_draw_text(font_small, al_map_rgb(255,255,255), 2*SCREEN_W/10, SCREEN_H*0.9, ALLEGRO_ALIGN_CENTRE, buffer);
     sprintf(buffer, "STAGE %d", stage);
-    al_draw_text(font_small, al_map_rgb(255,255,255), 2*SCREEN_W/10, SCREEN_H*0.93, ALLEGRO_ALIGN_CENTRE, buffer);
+    al_draw_text(font_small, al_map_rgb(255,255,255), 3*SCREEN_W/10, SCREEN_H*0.9, ALLEGRO_ALIGN_CENTRE, buffer);
  
     return 0;
 }

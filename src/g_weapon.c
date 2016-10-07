@@ -83,7 +83,8 @@ void fire_enemy2(gentity_t *ent){
 
 void fire_enemy3(gentity_t *ent){
 	gentity_t *bolt = NULL;
-	if(ent->pos_x >= player->pos_x - 30 && ent->pos_x <= player->pos_x + 30){
+	if(ent->pos_x >= player->pos_x - 30 && ent->pos_x <= player->pos_x + 30 &&
+		player->pos_y - ent->pos_y < 300){
 		bolt = spawn_enemy_laser(ent->pos_x + ent->width/2, ent->pos_y,0,1, ent);
 		if (bolt){
 			ent->next_fire = level_time + ent->fire_rate;
@@ -91,6 +92,18 @@ void fire_enemy3(gentity_t *ent){
 		}
 	}
 }
+
+void fire_enemy4(gentity_t *ent){
+	gentity_t *bolt = NULL;
+	gentity_t *bolt2 = NULL;
+	bolt = spawn_enemy_bullet(ent->pos_x + ent->width/2-20, ent->pos_y + ent->height,1,1, ent);
+	bolt2 = spawn_enemy_bullet(ent->pos_x + ent->width/2+20, ent->pos_y + ent->height,-1,1, ent);
+	if (bolt && bolt2){
+		ent->next_fire = level_time + ent->fire_rate;
+		al_play_sample(fire_sound, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+	}
+}
+
 
 void fire_boss1(gentity_t *ent){
 	gentity_t *bolt,*bolt2,*bolt3,*bolt4;

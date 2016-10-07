@@ -95,18 +95,24 @@ void spawn_crate (gentity_t *ent){
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_rocket.png");
 					wp_crate->weapon = 3;
 				}
+				else
+					destroy(wp_crate);
 				break;
 			case 3:
 				if (stage > 2){
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_bouncegun.png");
 					wp_crate->weapon = 4;
 				}
+				else
+					destroy(wp_crate);
 				break;
 			case 4:
 				if (stage > 3){
 					wp_crate->sprite = al_load_bitmap("../art/sprites/crate_lasergun.png");
 					wp_crate->weapon = 5;
-				}	
+				}
+				else
+					destroy(wp_crate);	
 				break;
 			default:
 				break;

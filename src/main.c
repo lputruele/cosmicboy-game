@@ -7,7 +7,7 @@ int main()
     init_screen();
 	init_controls();
     init_sound();
-    
+
     main_menu();
     init_level();
     init_player();
@@ -33,9 +33,9 @@ int main()
                 pressed_keys();
     			al_clear_to_color(al_map_rgb(0,0,0));
                 al_draw_bitmap(background,0,0 - (level_time/2) % 2000,0);
-                hud();
                 update_entities();
                 draw_entities();
+                hud();
     			al_flip_display();
             }
             if (game_over){

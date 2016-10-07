@@ -46,8 +46,7 @@ void create_melee(float posx, float posy, float dirx){
 		enemy->is_bolt = false;
 		enemy->fire_rate = 50;
 		enemy->next_fire = level_time;
-		//enemy->fire = fire_enemy1;
-		enemy->health = 1;
+		enemy->health = 10;
 		enemy->damage = 1;
 		enemy->lives = 1;
 		enemy->score = 1;
@@ -76,10 +75,10 @@ void create_fighter(float posx, float posy, float dirx){
 		enemy->fire_rate = 50;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy2;
-		enemy->health = 1;
+		enemy->health = 10;
 		enemy->damage = 1;
 		enemy->lives = 1;
-		enemy->score = 1;
+		enemy->score = 2;
 		enemy->move = move;
 		enemy->die = death_enemy;
 		enemy->is_enemy = true;
@@ -108,8 +107,37 @@ void create_laserguy(float posx, float posy, float dirx){
 		enemy->health = 20;
 		enemy->damage = 1;
 		enemy->lives = 1;
-		enemy->score = 1;
+		enemy->score = 5;
 		enemy->move = move_enemy2;
+		enemy->die = death_enemy;
+		enemy->is_enemy = true;
+	}
+}
+
+void create_crossunit(float posx, float posy, float dirx){
+	gentity_t *enemy = NULL;
+	enemy = spawn(enemy);
+	if (enemy){
+		enemy->pos_x = posx;
+		enemy->pos_y = posy;
+		enemy->width = 50;
+		enemy->height = 70;
+		enemy->speed = 3.0;
+		enemy->sprite = al_load_bitmap("../art/sprites/enemy10.png");
+		enemy->dir_x = dirx;
+		enemy->dir_y = 1;
+		enemy->parent = enemy;
+		enemy->next_think = level_time + 1000;
+		enemy->think = destroy;
+		enemy->is_bolt = false;
+		enemy->fire_rate = 30;
+		enemy->next_fire = level_time;
+		enemy->fire = fire_enemy4;
+		enemy->health = 30;
+		enemy->damage = 1;
+		enemy->lives = 1;
+		enemy->score = 3;
+		enemy->move = move;
 		enemy->die = death_enemy;
 		enemy->is_enemy = true;
 	}
@@ -137,7 +165,7 @@ void create_plasmamissile(float posx, float posy, float dirx){
 		enemy->health = 300;
 		enemy->damage = 1;
 		enemy->lives = 1;
-		enemy->score = 1;
+		enemy->score = 5;
 		enemy->move = move;
 		enemy->die = death_plasmamissile;
 		enemy->is_enemy = true;
@@ -240,6 +268,12 @@ void laserguy_squad(){
 	spawnenemy_timer = level_time + 100;
 }
 
+void crossunit_squad(){
+	int r = rand() % 400;
+	create_crossunit(r + 400, -50, 0);
+	spawnenemy_timer = level_time + 50;
+}
+
 void plasmamissile_squad(){
 	int r = rand() % 2;
 	float posx,posy,dirx;
@@ -291,7 +325,7 @@ void boss1(){
 		boss->health = 500;
 		boss->damage = 1;
 		boss->lives = 1;
-		boss->score = 1;
+		boss->score = 50;
 		boss->move = move_boss1;
 		boss->die = death_boss;
 		//boss->pain = add_speed;

@@ -83,25 +83,18 @@ void destroy(gentity_t *ent){
 }
 
 //Inflicts damage to both entities of a collision
-void damage(gentity_t *this, gentity_t *other){
-	if (!(this->flags & FL_GODMODE)){
-		this->health -= other->damage;
-		if (other->damage > 0)
-			this->hit = true;
-		if (this->pain)
-			this->pain(this);
+void damage(gentity_t *ent, gentity_t *attacker){
+	if (!ent->hit){ //make sure that it isn't double damage
+		if (!(ent->flags & FL_GODMODE)){
+			ent->health -= attacker->damage;
+			if (attacker->damage > 0)
+				ent->hit = true;
+			if (ent->pain)
+				ent->pain(ent);
+		}
+		if (ent->health <= 0)
+			ent->die(ent);
 	}
-	if (!(other->flags & FL_GODMODE)){
-		other->health -= this->damage;
-		if (this->damage > 0)
-			other->hit = true;
-		if (other->pain)
-			other->pain(other);
-	}
-	if (this->health <= 0)
-		this->die(this);
-	if (other->health <= 0)
-		other->die(other);
 }
 
 //Checks collision of one entity with all other entities
@@ -114,8 +107,8 @@ void check_collide(gentity_t *ent){
     		other != ent &&
     		other->parent != ent &&
     		ent->parent != other &&
-    		(!ent->is_bolt || !other->is_bolt) &&
-    		(!ent->parent->is_enemy || !other->parent->is_enemy) &&
+    		(!ent->is_bolt || !other->is_bolt) && //bolts can't damage each other
+    		(!ent->parent->is_enemy || !other->parent->is_enemy) && // enemies can't damage each other
     		((other->pos_x >= ent->pos_x &&
     		other->pos_x <= ent->pos_x + ent->width &&
     		other->pos_y >= ent->pos_y &&
@@ -130,11 +123,8 @@ void check_collide(gentity_t *ent){
     			changeWeapon(other->weapon);
     			other->health -= 999; //it needs to die after this
     		}
-    		if (other == player && ent->weapon){ //colliding with a crate
-    			changeWeapon(ent->weapon);
-    			ent->health -= 999; //it needs to die after this
-    		}
     		damage(ent,other);
+    		damage(other,ent);
     		break;
     	}
     }
@@ -145,7 +135,7 @@ void enemy_wave(){
 	int r;
 	switch (stage){
 		case 1:
-			r = rand() % 2;
+			r = rand() % 3;
 			switch (r){
 				case 0:
 					blaster_squad();
@@ -207,7 +197,7 @@ void enemy_wave(){
 			}
 			break;
 		default:
-			r = rand() % 5;
+			r = rand() % 6;
 			switch (r){
 				case 0:
 					blaster_squad();
@@ -223,6 +213,9 @@ void enemy_wave(){
 					break;
 				case 4:
 					laserguy_squad();
+					break;
+				case 5:
+					crossunit_squad();
 					break;
 				default:
 					break;
