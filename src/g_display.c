@@ -1,5 +1,14 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions to manipulate the graphic aspect of 
+the game.
+Used by main and level scripts.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
-//#include <allegro_image.h>
 
 int init_screen(){
 	display = NULL;

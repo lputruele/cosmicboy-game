@@ -1,3 +1,13 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the weapons firing, not including
+the code for the spawning of projectiles.
+Used by player and enemy scripts.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 

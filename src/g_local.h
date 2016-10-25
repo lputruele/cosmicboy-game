@@ -1,3 +1,13 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has public data, meaning global definitions and 
+declarations.
+Used by all scripts.
+---------------------------------------------------------------
+*/
+
 #include <stdio.h>
 #include <allegro.h>
 #include <allegro5/allegro_primitives.h>

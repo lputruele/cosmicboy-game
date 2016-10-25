@@ -1,8 +1,14 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the display of menus, intermission
+screens and the hud.
+Used by main script.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
-//#include <allegro5/allegro_font.h>
-//#include <allegro5/allegro_ttf.h>
-//#include <stdlib.h>
-//#include <string.h>
 
 ALLEGRO_FONT *font_big,*font_medium, *font_small;
 ALLEGRO_BITMAP *hud_object;

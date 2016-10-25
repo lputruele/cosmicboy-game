@@ -1,3 +1,14 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions to spawn individual enemies in the
+game, as well as other ones that spawn a combination of enemies
+in a certain formation.
+Used by level script.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 void create_blaster(float posx, float posy, float dirx){
@@ -301,6 +312,17 @@ void activate_bounce(gentity_t *ent){
 
 void add_speed(gentity_t *ent){
 	ent->speed += 0.1;
+}
+
+void dodge_ga(gentity_t *ent){
+	//create initial population
+	//main loop
+		//test fitness
+		//make new generation
+		//new generation loop
+			//crossover
+			//mutate
+		//replace population with new generation
 }
 
 void boss1(){

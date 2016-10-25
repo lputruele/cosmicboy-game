@@ -1,3 +1,13 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the death of game entities as 
+well as the spawn of weapon crates.
+Used by missile, player and enemy scripts.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 
@@ -145,6 +155,7 @@ void death_enemy (gentity_t *ent){
 
 void death_boss (gentity_t *ent){
 	gentity_t *explosion = NULL;
+	int i;
 	if (!cheat_activated)
 		score += ent->score;
 	explosion = spawn(explosion);
@@ -162,9 +173,13 @@ void death_boss (gentity_t *ent){
 	stage++;
 	player->lives++;
 	spawnboss_timer = level_time + 5000;
+	spawnenemy_timer = level_time + 100;
 	stage_screen();
 	level_background();
 	destroy_sound();
 	level_music();
-	destroy(ent);
+	for (i=0;i<num_entities;i++){
+		if (g_entities[i]->parent == ent)
+			destroy(g_entities[i]);
+	}
 }

@@ -1,3 +1,13 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script handles the level, it has functions for
+the manipulation of game entities and updating the level.
+Used by almost every script.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 //Initialization of the game

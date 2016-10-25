@@ -1,3 +1,12 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This is the main game script, it consists of a loop that draws
+a frame and updates the system state.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 int main()

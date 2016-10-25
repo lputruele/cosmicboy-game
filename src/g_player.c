@@ -1,6 +1,13 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the player.
+Used by main and enemy scripts.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
-//#include <allegro_image.h>
-//#include <stdio.h>
 
 int init_player(){
 	player = NULL;

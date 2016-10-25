@@ -1,3 +1,12 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for spawning projectiles.
+Used by the weapons script.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 gentity_t *spawn_bullet(float posx, float posy, float dirx, float diry, gentity_t *parent){

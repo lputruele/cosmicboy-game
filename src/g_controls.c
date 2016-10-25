@@ -1,3 +1,12 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the handling the controls.
+Used by the main script.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 //cheat variables

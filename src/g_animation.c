@@ -1,3 +1,11 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the animations.
+Used by death script.
+---------------------------------------------------------------
+*/
 #include "g_local.h"
 
 void explosion_anim(gentity_t *ent){

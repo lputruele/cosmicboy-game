@@ -1,3 +1,12 @@
+/*
+---------------------------------------------------------------
+COSMIC BOY
+
+This script has functions for the movement of game entities.
+Used by missile, player and enemy scripts.
+---------------------------------------------------------------
+*/
+
 #include "g_local.h"
 
 
