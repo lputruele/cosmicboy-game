@@ -45,7 +45,7 @@ enum MYKEYS {
 
 typedef struct gentity gentity_t;
 
-//Game entity structure i.e ships, bolts and asteroids
+//Game entity structure i.e ships, crates, explosions, bolts and asteroids
 struct gentity{
 	bool			inuse;	//entity is ignored if false
 	float 			pos_x;	
@@ -71,10 +71,12 @@ struct gentity{
 	bool			is_enemy;
 	int 			lives;	//amount of lives left
 	int 			health;
+	int 			max_health; //matters if entity is a boss
 	int 			damage;	//damage that inflicts when colliding
 	int 			count;	//just a counter utility
-	int 			score;	//amount of score an enemy gives if dead
-	bool			hit;
+	int 			score;	//amount of score an enemy gives when it dies
+	bool			hit; 
+	int 			phase; //matters if entity is a phase enemy
 };
 
 bool redraw;
@@ -164,6 +166,7 @@ void fire_enemy2(gentity_t *ent);
 void fire_enemy3(gentity_t *ent);
 void fire_enemy4(gentity_t *ent);
 void fire_boss1(gentity_t *ent);
+void fire_boss2(gentity_t *ent);
 
 //g_missile.c
 
@@ -182,6 +185,7 @@ void move(gentity_t *ent);
 void move_enemy1(gentity_t *ent);
 void move_enemy2(gentity_t *ent);
 void move_boss1(gentity_t *ent);
+void move_boss2(gentity_t *ent);
 
 //g_death.c
 

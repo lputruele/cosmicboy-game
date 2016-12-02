@@ -47,7 +47,7 @@ void create_melee(float posx, float posy, float dirx){
 		enemy->pos_y = posy;
 		enemy->width = 23;
 		enemy->height = 55;
-		enemy->speed = 6.0;
+		enemy->speed = 6.5;
 		enemy->sprite = al_load_bitmap("../art/sprites/enemy2.png");
 		enemy->dir_x = dirx;
 		enemy->dir_y = 0.3;
@@ -83,7 +83,7 @@ void create_fighter(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->fire_rate = 50;
+		enemy->fire_rate = 60;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy2;
 		enemy->health = 10;
@@ -112,7 +112,7 @@ void create_laserguy(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->fire_rate = 10;
+		enemy->fire_rate = 15;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy3;
 		enemy->health = 20;
@@ -141,7 +141,7 @@ void create_crossunit(float posx, float posy, float dirx){
 		enemy->next_think = level_time + 1000;
 		enemy->think = destroy;
 		enemy->is_bolt = false;
-		enemy->fire_rate = 30;
+		enemy->fire_rate = 35;
 		enemy->next_fire = level_time;
 		enemy->fire = fire_enemy4;
 		enemy->health = 30;
@@ -172,8 +172,7 @@ void create_plasmamissile(float posx, float posy, float dirx){
 		enemy->is_bolt = false;
 		enemy->fire_rate = 50;
 		enemy->next_fire = level_time;
-		//enemy->fire = fire_enemy2;
-		enemy->health = 300;
+		enemy->health = 200;
 		enemy->damage = 1;
 		enemy->lives = 1;
 		enemy->score = 5;
@@ -211,7 +210,7 @@ void blaster_squad(){
 			break;
 	}
 	for (i=0; i<5; i++){
-		create_blaster(posx-80*i*dirx, posy+50*(5-i), dirx);
+		create_blaster(posx-85*i*dirx, posy+50*(5-i), dirx);
 	}
 	spawnenemy_timer = level_time + 150;
 }
@@ -310,19 +309,23 @@ void activate_bounce(gentity_t *ent){
 	ent->flags |= FL_BOUNCE;
 }
 
-void add_speed(gentity_t *ent){
-	ent->speed += 0.1;
-}
-
-void dodge_ga(gentity_t *ent){
-	//create initial population
-	//main loop
-		//test fitness
-		//make new generation
-		//new generation loop
-			//crossover
-			//mutate
-		//replace population with new generation
+void update_boss(gentity_t *ent){
+	switch (ent->phase){
+		case 1:
+			if(ent->health < ent->max_health/2){
+				ent->speed *=1.5;
+				ent->phase++;
+			}
+			break;
+		case 2:
+			if(ent->health < ent->max_health/4){
+				ent->speed *=1.5;
+				ent->phase++;
+			}
+			break;
+		default:
+			break;
+	}	
 }
 
 void boss1(){
@@ -333,24 +336,25 @@ void boss1(){
 		boss->pos_y = 0;
 		boss->width = 110;
 		boss->height = 210;
-		boss->speed = 1.0;
-		boss->sprite = al_load_bitmap("../art/sprites/boss2.png");
+		boss->speed = 2.0;
+		boss->sprite = al_load_bitmap("../art/sprites/boss0.png");
 		boss->dir_x = 0;
 		boss->dir_y = 1;
 		boss->parent = boss;
-		boss->next_think = level_time + 100;
-		//boss->think = activate_bounce;
+		boss->next_think = level_time + 300;
+		boss->think = update_boss;
 		boss->is_bolt = false;
 		boss->fire_rate = 25;
 		boss->next_fire = level_time;
 		boss->fire = fire_boss1;
 		boss->health = 500;
+		boss->phase = 1;
+		boss->max_health = 500;
 		boss->damage = 1;
 		boss->lives = 1;
 		boss->score = 50;
 		boss->move = move_boss1;
 		boss->die = death_boss;
-		//boss->pain = add_speed;
 		boss->is_enemy = true;
 		boss->count = 0;
 	}
@@ -362,66 +366,41 @@ void boss2(){
 	if (boss){
 		boss->pos_x = SCREEN_W/2;
 		boss->pos_y = 0;
-		boss->width = 150;
-		boss->height = 150;
-		boss->speed = 1.0;
+		boss->width = 100;
+		boss->height = 320;
+		boss->speed = 0.3;
 		boss->sprite = al_load_bitmap("../art/sprites/boss1.png");
 		boss->dir_x = 0;
 		boss->dir_y = 1;
 		boss->parent = boss;
-		boss->next_think = level_time + 100;
-		//boss->think = activate_bounce;
+		boss->next_think = level_time + 300;
+		boss->think = update_boss;
 		boss->is_bolt = false;
-		boss->fire_rate = 25;
+		boss->fire_rate = 45;
 		boss->next_fire = level_time;
-		boss->fire = fire_boss1;
-		boss->health = 500;
+		boss->fire = fire_boss2;
+		boss->health = 800;
+		boss->phase = 1;
+		boss->max_health = 800;
 		boss->damage = 1;
 		boss->lives = 1;
-		boss->score = 1;
-		boss->move = move_boss1;
+		boss->score = 60;
+		boss->move = move_boss2;
 		boss->die = death_boss;
-		//boss->pain = add_speed;
 		boss->is_enemy = true;
 		boss->count = 0;
 	}
 }
 
-void boss3(){
-	gentity_t *boss = NULL;
-	boss = spawn(boss);
-	if (boss){
-		boss->pos_x = SCREEN_W/2;
-		boss->pos_y = 0;
-		boss->width = 150;
-		boss->height = 150;
-		boss->speed = 1.0;
-		boss->sprite = al_load_bitmap("../art/sprites/boss3.png");
-		boss->dir_x = 0;
-		boss->dir_y = 1;
-		boss->parent = boss;
-		boss->next_think = level_time + 100;
-		//boss->think = activate_bounce;
-		boss->is_bolt = false;
-		boss->fire_rate = 25;
-		boss->next_fire = level_time;
-		boss->fire = fire_boss1;
-		boss->health = 500;
-		boss->damage = 1;
-		boss->lives = 1;
-		boss->score = 1;
-		boss->move = move_boss1;
-		boss->die = death_boss;
-		//boss->pain = add_speed;
-		boss->is_enemy = true;
-		boss->count = 0;
-	}
-}
+
 
 void boss_fight(){
 	switch (stage){
 		case 1:
 			boss1();
+			break;
+		case 2:
+			boss2();
 			break;
 		default:
 			boss1();

@@ -94,7 +94,7 @@ gentity_t *spawn_enemy_bullet_medium(float posx, float posy, float dirx, float d
 		bolt->pos_x = posx;
 		bolt->pos_y = posy;
 		bolt->width = 30;
-		bolt->height = 30;
+		bolt->height = 50;
 		bolt->speed = 3.0;
 		bolt->sprite = al_load_bitmap("../art/sprites/enemy_missile_medium.png");
 		bolt->dir_x = dirx;

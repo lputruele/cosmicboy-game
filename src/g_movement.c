@@ -49,13 +49,40 @@ void move_enemy2(gentity_t *ent){
 }
 
 void move_boss1(gentity_t *ent){
-	if (ent->pos_y <= SCREEN_H/2 && ent->pos_y > SCREEN_H/4 && ent->count == 0){
-		ent->dir_x = 1;
-		ent->dir_y = 0;
-		ent->count++;
+	switch (ent->count){
+		case 0:
+			if (ent->pos_y <= SCREEN_H/2 && ent->pos_y > SCREEN_H/4){
+				ent->dir_x = 1;
+				ent->dir_y = 1;	
+				ent->count++;
+			}
+			break;
+		default:
+			if ((ent->pos_y >= SCREEN_H - ent->height/2) || (ent->pos_y <= ent->height/2)){
+				ent->dir_y *= -1;
+			}
+			if ((ent->pos_x >= SCREEN_W - ent->width/2) || (ent->pos_x <= ent->width/2)){
+				ent->dir_x *= -1;
+			}
+			break;
 	}
-	if ((ent->pos_x >= SCREEN_W - 2*ent->width) || (ent->pos_x <= 2*ent->width)){
-			ent->dir_x *= -1;
+	move(ent);
+}
+
+void move_boss2(gentity_t *ent){
+	switch (ent->count){
+		case 0:
+			if (ent->pos_y <= SCREEN_H/2 && ent->pos_y > SCREEN_H/4){
+				ent->dir_y = -1;	
+				ent->count++;
+			}
+			break;
+		default:
+			if (ent->pos_y <= 0){
+				ent->dir_y = 1;	
+				ent->count--;
+			}
+			break;
 	}
 	move(ent);
 }

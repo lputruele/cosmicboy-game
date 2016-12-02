@@ -18,7 +18,7 @@ int init_level(){
 	score = 0;
 	god_timer = level_time;
 	spawnenemy_timer = level_time;
-	spawnboss_timer = level_time + 5000;
+	spawnboss_timer = 5000;
 	stage = 1;
 	cheat_activated = false;
 	file_score = NULL;
